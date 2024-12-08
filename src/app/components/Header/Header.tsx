@@ -46,11 +46,11 @@ function Header() {
         <div className='w-[80%] flex items-center justify-between max-md:hidden'>
           <ul className='flex items-center gap-[15px]'>
             <Link href={'/'}><li className='montserrat-bold text-secondaryCol text-sm'>Home</li></Link>
-            <li className='montserrat-bold text-secondaryCol text-sm'>Shop</li>
-            <li className='montserrat-bold text-secondaryCol text-sm'>About</li>
-            <li className='montserrat-bold text-secondaryCol text-sm'>Blog</li>
-            <li className='montserrat-bold text-secondaryCol text-sm'>Contact</li>
-            <li className='montserrat-bold text-secondaryCol text-sm'>Pages</li>
+            <Link href={'./Product'}><li className='montserrat-bold text-secondaryCol text-sm'>Shop</li></Link>
+            <Link href={'/About'}><li className='montserrat-bold text-secondaryCol text-sm'>About</li></Link>
+            <Link href={'/'}><li className='montserrat-bold text-secondaryCol text-sm'>Blog</li></Link>
+            <Link href={'/'}><li className='montserrat-bold text-secondaryCol text-sm'>Contact</li></Link>
+            <Link href={'/'}><li className='montserrat-bold text-secondaryCol text-sm'>Pages</li></Link>
 
           </ul>
           <div className='flex items-center py-[10px] gap-[10px]'>
