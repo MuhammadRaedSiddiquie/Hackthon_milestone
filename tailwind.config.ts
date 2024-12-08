@@ -16,9 +16,13 @@ const config: Config = {
   			xl: '1440px',
   			xxl: '1920px'
   		},
+		
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
+			primaryCol: '#252B42',
+			secondaryCol: '#737373',
+			blueCol: '#23A6F0',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'
