@@ -1,6 +1,7 @@
 import React from 'react'
 import { IoIosArrowForward } from "react-icons/io";
 import Card3 from '../components/Card3/Card3';
+import Logos from '../components/Logos/Logos';
 
 
 function page() {
@@ -36,12 +37,8 @@ function page() {
                     <button className='bg-blueCol text-sm text-white rounded-[5px] py-[10px] px-[20px]'>Filter</button>
                 </div>
             </div>
-            <div className='w-[73%] flex  items-center justify-center py-[50px] gap-[30px]'>
-                <div className='w-[20%] h-[100px] bg-center bg-no-cover bg-no-repeat bg-[url("/images/logo1.svg")]'></div>
-                <div className='w-[20%] h-[100px] bg-center bg-no-cover bg-no-repeat bg-[url("/images/logo2.svg")]'></div>
-                <div className='w-[20%] h-[100px] bg-center bg-no-cover bg-no-repeat bg-[url("/images/logo3.svg")]'></div>
-                <div className='w-[20%] h-[100px] bg-center bg-no-cover bg-no-repeat bg-[url("/images/logo4.svg")]'></div>
-                <div className='w-[20%] h-[100px] bg-center bg-no-cover bg-no-repeat bg-[url("/images/logo5.svg")]'></div>
+            <div className='w-[73%] h-fit'>
+            <Logos></Logos>
             </div>
             <div className='w-[73%] grid grid-cols-4 grid-flow-row place-items-center max-md:grid-cols-1'>
             <Card3
