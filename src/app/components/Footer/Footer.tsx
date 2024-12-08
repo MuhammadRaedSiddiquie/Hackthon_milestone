@@ -14,7 +14,7 @@ function Footer() {
           </div>
         </div>
         <hr className='w-full h-[2px] bg-[E6E6E6]' />
-        <div className='w-full flex items-start py-[50px] justify-between'>
+        <div className='w-full flex items-start py-[50px] justify-between max-md:flex-col max-md:gap-[40px]'>
           <ul className='flex flex-col gap-[20px] items-start'>
             <h1 className='montserrat-bold text-base text-primaryCol'>Company Info</h1>
             <li className='text-sm text-secondaryCol montserrat-bold'>About Us</li>
@@ -54,7 +54,7 @@ function Footer() {
 
         </div>
         <div className='w-full flex items-center justify-start py-[25px]'>
-          <p className='montserrat-bold text-secondaryCol text-sm'>Made With Love By Finland All Right Reserved </p>
+          <p className='montserrat-bold text-secondaryCol text-sm text-center'>Made With Love By Finland All Right Reserved </p>
         </div>
       </div>
     </footer>

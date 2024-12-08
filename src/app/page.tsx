@@ -1,3 +1,4 @@
+import Carousel2 from "./components/Carousel2/Carousel2";
 import Feature from "./components/Feature/Feature";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
@@ -14,7 +15,7 @@ export default function Home() {
       <Hero></Hero>
       <Pick></Pick>
       <Products></Products>
-      <Hero></Hero>
+      <Carousel2></Carousel2>
       <Summer></Summer>
       <Feature></Feature>
       <Footer></Footer>
