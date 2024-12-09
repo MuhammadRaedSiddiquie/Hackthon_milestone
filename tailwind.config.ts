@@ -21,8 +21,11 @@ const config: Config = {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
 			primaryCol: '#252B42',
+			primaryHov: '#181c2b',
 			secondaryCol: '#737373',
+			secondaryHov: '#333333',
 			blueCol: '#23A6F0',
+			blueHov: '#1e8cca',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'

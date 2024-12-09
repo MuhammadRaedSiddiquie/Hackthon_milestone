@@ -8,15 +8,15 @@ import { IoIosArrowForward } from "react-icons/io";
 
 function Card2({ image, title, info}: { image: string, title: string, info: string}) {
     return (
-        <div className='w-[328px] h-[606px] flex flex-col items-center border-b-[1px] border-secondaryCol'>
+        <div className='w-[328px] h-[606px] flex flex-col items-center border-b-[1px] border-secondaryCol cursor-pointer hover:scale-105 duration-500'>
             <div className='w-full h-[300px] relative'>
                 <Image src={image} alt='product' layout='fill'></Image>
             </div>
             <div className='flex flex-col items-start gap-[10px] px-[20px] pt-[25px] pb-[35px]'>
                 <div className='flex items-center gap-[15px]'>
                     <p className='montserrat-regular text-[14px] text-blueCol'>Google</p>
-                    <p className='montserrat-regular text-[14px] text-secondaryCol'>Trending</p>
-                    <p className='montserrat-regular text-[14px] text-secondaryCol'>New</p>
+                    <p className='montserrat-regular text-[14px] text-secondaryCol hover:text-blueCol'>Trending</p>
+                    <p className='montserrat-regular text-[14px] text-secondaryCol hover:text-blueCol'>New</p>
                 </div>
                 <h3 className='montserrat-regular text-[22px] text-primaryCol'>{title}</h3>
                 <p className='montserrat-regular text-base text-secondaryCol'>{info}</p>

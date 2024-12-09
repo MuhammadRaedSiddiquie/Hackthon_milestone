@@ -42,43 +42,43 @@ function Header() {
         </div>
       </div>
       <nav className='w-full h-[58px] bg-white flex items-center justify-between px-[30px] gap-[40px]'>
-        <h1 className='text-[24px] montserrat-bold text-primaryCol'>Bandage</h1>
+        <h1 className='text-[24px] montserrat-bolder text-primaryCol'>Bandage</h1>
         <div className='w-[80%] flex items-center justify-between max-md:hidden'>
           <ul className='flex items-center gap-[15px]'>
-            <Link href={'/'}><li className='montserrat-bold text-secondaryCol text-sm'>Home</li></Link>
-            <Link href={'./Product'}><li className='montserrat-bold text-secondaryCol text-sm'>Shop</li></Link>
-            <Link href={'/About'}><li className='montserrat-bold text-secondaryCol text-sm'>About</li></Link>
-            <Link href={'/Team'}><li className='montserrat-bold text-secondaryCol text-sm'>Team</li></Link>
-            <Link href={'/Contact'}><li className='montserrat-bold text-secondaryCol text-sm'>Contact</li></Link>
-            <Link href={'/Pricing'}><li className='montserrat-bold text-secondaryCol text-sm'>Pricing</li></Link>
+            <Link href={'/'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov'>Home</li></Link>
+            <Link href={'./Product'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov'>Shop</li></Link>
+            <Link href={'/About'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov'>About</li></Link>
+            <Link href={'/Team'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov'>Team</li></Link>
+            <Link href={'/Contact'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov'>Contact</li></Link>
+            <Link href={'/Pricing'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov'>Pricing</li></Link>
 
           </ul>
           <div className='flex items-center py-[10px] gap-[10px]'>
-            <div className='flex items-center px-[10px]'>
+            <div className='flex items-center gap-2 px-[10px] cursor-pointer'>
               <FaRegUser className='text-[#23A6F0]' />
-              <p className='montserrat-bold text-[#23A6F0] text-sm'>Login / Signup</p>
+              <p className='montserrat-bold text-[#23A6F0] text-sm hover:text-blueHov'>Login / Signup</p>
             </div>
-            <div className='flex items-center px-[10px]'>
-              <IoCartOutline className='text-[#23A6F0] text-xl' />
+            <div className='flex items-center px-[10px] cursor-pointer'>
+              <IoCartOutline className='text-[#23A6F0] text-xl hover:text-blueHov' />
               <p className='montserrat-bold text-[#23A6F0] text-sm'>1</p>
             </div>
-            <div className='flex items-center px-[10px]'>
-              <CiHeart className='text-[#23A6F0] text-xl' />
+            <div className='flex items-center px-[10px] cursor-pointer'>
+              <CiHeart className='text-[#23A6F0] text-xl hover:text-blueHov' />
               <p className='montserrat-bold text-[#23A6F0] text-sm'>1</p>
             </div>
           </div>
         </div>
-        <div className='hidden w-[35%] items-center gap-[15px] justify-between max-md:flex'>
-          <IoMdSearch className='text-primaryCol text-2xl' />
-          <IoCartOutline className='text-primaryCol text-2xl' />
+        <div className='hidden w-[35%] items-center gap-[15px] max-md:flex'>
+          <IoMdSearch className='text-primaryCol hover:text-primaryHov text-2xl' />
+          <IoCartOutline className='text-primaryCol hover:text-primaryHov text-2xl' />
           {open ? (
             <IoClose
-              className="text-primaryCol text-2xl"
+              className="text-primaryCol hover:text-primaryHov text-2xl"
               onClick={() => setOpen(false)}
             />
           ) : (
             <HiMiniBars3BottomRight
-              className="text-primaryCol text-2xl"
+              className="text-primaryCol hover:text-primaryHov text-2xl"
               onClick={() => setOpen(true)}
             />
           )}
@@ -88,12 +88,12 @@ function Header() {
       </nav>
       {open ? <div className='w-full py-[25px]'>
         <ul className='flex flex-col w-full items-center gap-[25px]'>
-          <Link href={'/'}><li className='montserrat-regular text-xl text-secondaryCol'>Home</li></Link>
-          <Link href={'/Product'}><li className='montserrat-regular text-xl text-secondaryCol'>Product</li></Link>
-          <Link href={'/Pricing'}><li className='montserrat-regular text-xl text-secondaryCol'>Pricing</li></Link>
-          <Link href={'/Contact'}><li className='montserrat-regular text-xl text-secondaryCol'>Contact</li></Link>
-          <Link href={'/About'}><li className='montserrat-regular text-xl text-secondaryCol'>About</li></Link>
-          <Link href={'/Team'}><li className='montserrat-regular text-xl text-secondaryCol'>Team</li></Link>
+          <Link href={'/'}><li className='montserrat-regular text-xl text-secondaryCol hover:text-secondaryHov'>Home</li></Link>
+          <Link href={'/Product'}><li className='montserrat-regular text-xl text-secondaryCol hover:text-secondaryHov'>Product</li></Link>
+          <Link href={'/Pricing'}><li className='montserrat-regular text-xl text-secondaryCol hover:text-secondaryHov'>Pricing</li></Link>
+          <Link href={'/Contact'}><li className='montserrat-regular text-xl text-secondaryCol hover:text-secondaryHov'>Contact</li></Link>
+          <Link href={'/About'}><li className='montserrat-regular text-xl text-secondaryCol hover:text-secondaryHov'>About</li></Link>
+          <Link href={'/Team'}><li className='montserrat-regular text-xl text-secondaryCol hover:text-secondaryHov'>Team</li></Link>
         </ul>
 
       </div> : ''}

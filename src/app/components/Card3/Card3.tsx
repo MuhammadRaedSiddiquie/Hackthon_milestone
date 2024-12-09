@@ -1,11 +1,22 @@
+'use client'; 
+
+import { useRouter } from 'next/navigation';
 import React from 'react'
 import Image from 'next/image'
 
 function Card({image,title,info,price,discount}:{image:string,title:string,info:string,price:number,discount:number}) {
+  const router = useRouter();
+
+  const handleCardClick = () => {
+    router.push(
+      `/items/${title.replace(/\s+/g, '-').toLowerCase()}?title=${encodeURIComponent(title)}&info=${encodeURIComponent(info)}&price=${price}&discount=${discount}&image=${encodeURIComponent(image)}`
+    );
+  };
+  
   return (
-    <div className='w-[238px] h-fit flex flex-col items-center'>
+    <div className='w-[238px] h-fit flex flex-col items-center hover:scale-105 duration-500 cursor-pointer' onClick={handleCardClick}>
       <div className='w-[238px] h-[300px] relative'>
-        <Image src={image} alt='product' layout='fill'></Image>
+        <Image src={image} alt='product' layout='fill' className='object-cover object-top'></Image>
       </div>
       <div className='flex flex-col items-center gap-[10px] px-[25px] pb-[35px] pt-[25px]'>
         <h2 className='montserrat-bold text-black text-base'>{title}</h2>

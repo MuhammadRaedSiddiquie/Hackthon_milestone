@@ -18,14 +18,14 @@ function page() {
             <h3 className='montserrat-bold text-primaryCol text-[20px]'>Fax : +451 215 215</h3>
           </div>
           <div className='flex items-center justify-start gap-[20px]'>
-            <FaFacebook className='text-primaryCol text-3xl' />
-            <FaInstagram className='text-primaryCol text-3xl' />
-            <FaTwitter className='text-primaryCol text-3xl' />
-            <FaLinkedin className='text-primaryCol text-3xl' />
+            <FaFacebook className='text-primaryCol text-3xl cursor-pointer hover:text-primaryHov' />
+            <FaInstagram className='text-primaryCol text-3xl cursor-pointer hover:text-primaryHov' />
+            <FaTwitter className='text-primaryCol text-3xl cursor-pointer hover:text-primaryHov' />
+            <FaLinkedin className='text-primaryCol text-3xl cursor-pointer hover:text-primaryHov' />
           </div>
         </div>
         <div className='w-[50%] h-full relative max-md:w-full max-md:h-[400px]'>
-          <Image src={'/images/carousel5.svg'} alt='pic' layout='fill' className='absolute'></Image>
+          <Image src={'/images/carousel5.svg'} alt='pic' layout='fill' className='absolute object-top object-fill'></Image>
         </div>
       </div>
       <div className='w-[73%] flex flex-col items-center py-[60px] max-md:w-[90%]'>
@@ -35,14 +35,14 @@ function page() {
             with big ideas</h2>
         </div>
         <div className='flex gap-2 max-md:flex-col '>
-        <div className='mb-8 max-md:mb-0 border-[1px] border-blueCol' >
+        <div className='mt-8 max-md:mt-0 border-[1px] border-blueCol hover:scale-105 duration-500' >
           <Image src={'/images/contact1.svg'} alt='card' width={330} height={400}></Image>
         </div>
-        <div>
+        <div className='hover:scale-105 duration-500'>
           <Image src={'/images/contact2.svg'} alt='card' width={330} height={400}></Image>
         </div>
 
-        <div className='mb-8 max-md:mb-0 border-[1px] border-blueCol'>
+        <div className='mt-8 max-md:mt-0 border-[1px] border-blueCol hover:scale-105 duration-500'>
           <Image src={'/images/contact3.svg'} alt='card' width={330} height={400}></Image>
         </div>
         </div>
@@ -51,10 +51,10 @@ function page() {
       </div>
       <div className='w-[73%] flex py-[80px] items-center justify-center'>
             <div className='flex flex-col items-center gap-[20px]'>
-            <PiArrowBendRightDownBold className='text-blueCol text-8xl' />
+            <PiArrowBendRightDownBold className='text-blueCol text-8xl hover:text-blueHov' />
                 <h2 className='montserrat-bold text-base text-primaryCol text-center'>WE CANT WAIT TO MEET YOU</h2>
                 <h1 className='montserrat-bold text-[58px] text-primaryCol max-md:text-[40px]'>LETS TALK</h1>
-                <button className='bg-blueCol rounded-[5px] py-[15px] px-[40px] text-white text-sm montserrat-bold'>Try it free now</button>
+                <button className='bg-blueCol rounded-[5px] py-[15px] px-[40px] text-white text-sm montserrat-bold hover:bg-blueHov'>Try it free now</button>
             </div>
         </div>
     </main>

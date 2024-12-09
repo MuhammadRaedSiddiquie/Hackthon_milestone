@@ -17,12 +17,12 @@ function page() {
                     </div>
                 </div>
                 <div className='w-full h-[530px] flex justify-between max-md:flex-col'>
-                    <div className='w-[49.5%] h-full bg-[url("/images/grid1.svg")] bg-center bg-cover max-md:w-full'></div>
+                    <div className='w-[49.5%] h-full bg-[url("/images/grid1.svg")] bg-top bg-cover max-md:w-full'></div>
                     <div className='w-[49.5%] h-full flex justify-between items-center flex-wrap max-md:w-full'>
-                        <div className='w-[49%] h-[48%] bg-[url("/images/grid2.svg")] bg-center bg-cover'></div>
-                        <div className='w-[49%] h-[48%] bg-[url("/images/grid3.svg")] bg-center bg-cover'></div>
-                        <div className='w-[49%] h-[48%] bg-[url("/images/grid4.svg")] bg-center bg-cover'></div>
-                        <div className='w-[49%] h-[48%] bg-[url("/images/grid5.svg")] bg-center bg-cover'></div>
+                        <div className='w-[49%] h-[48%] bg-[url("/images/grid2.svg")] bg-top bg-cover'></div>
+                        <div className='w-[49%] h-[48%] bg-[url("/images/grid3.svg")] bg-top bg-cover'></div>
+                        <div className='w-[49%] h-[48%] bg-[url("/images/grid4.svg")] bg-top bg-cover'></div>
+                        <div className='w-[49%] h-[48%] bg-[url("/images/grid5.svg")] bg-top bg-cover'></div>
                     </div>
 
                 </div>

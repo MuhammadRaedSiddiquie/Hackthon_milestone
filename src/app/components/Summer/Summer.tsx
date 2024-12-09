@@ -13,8 +13,8 @@ function Summer() {
                 <p className='montserrat-regular text-secondaryCol text-[20px] max-md:text-center'>We know how large objects will act,
                     but things on a small scale.</p>
                 <div className='flex gap-[10px] items-center max-md:flex-col max-md:gap-[25px]'>
-                    <button className='bg-[#2DC071] py-[15px] px-[40px] montserrat-bold text-sm text-white rounded-[5px] max-md:bg-blueCol'>BUY NOW</button>
-                    <button className='bg-white py-[15px] px-[40px] montserrat-bold text-[#2DC071] text-sm border-[1px] border-[#2DC071] rounded-[5px] max-md:border-blueCol max-md:text-blueCol'>READ MORE</button>
+                    <button className='bg-[#2DC071] py-[15px] px-[40px] montserrat-bold text-sm text-white rounded-[5px] hover:bg-[#26a05e] max-md:bg-blueCol'>BUY NOW</button>
+                    <button className='bg-white py-[15px] px-[40px] montserrat-bold text-[#2DC071] text-sm border-[1px] border-[#2DC071] rounded-[5px] hover:bg-[#2DC071] hover:text-white max-md:border-blueCol max-md:text-blueCol'>READ MORE</button>
                 </div>
             </div>
 

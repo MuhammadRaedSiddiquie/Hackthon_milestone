@@ -1,5 +1,5 @@
-// components/Card.tsx
-'use client'; // Needed for client-side navigation
+
+'use client'; 
 
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -15,7 +15,7 @@ function Card({ image, title, info, price, discount }: { image: string; title: s
 
   return (
 
-    <div className='w-[238px] h-[615px] flex flex-col items-center' onClick={handleCardClick} >
+    <div className='w-[238px] h-[615px] flex flex-col items-center hover:scale-105 cursor-pointer duration-500' onClick={handleCardClick} >
       <div className='w-full h-[427px] relative'>
         <Image src={image} alt='product' layout='fill'></Image>
       </div>

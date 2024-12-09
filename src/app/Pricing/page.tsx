@@ -39,14 +39,14 @@ function page() {
                 </div>
             </div>
             <div className='w-[73%] flex items-center gap-4 max-md:flex-col max-md:w-[90%]'>
-                <div className='mt-8 max-md:mt-0'>
+                <div className='mt-8 max-md:mt-0 hover:scale-105 duration-500'>
                     <Image src={'/images/price1.svg'} width={330} alt='card' height={2000}></Image>
                 </div>
-                <div>
+                <div className='hover:scale-105 duration-500'>
                     <Image src={'/images/price2.svg'} width={330} alt='card' height={2000}></Image>
                 </div>
 
-                <div className='mt-8 max-md:mt-0'>
+                <div className='mt-8 max-md:mt-0 hover:scale-105 duration-500'>
                     <Image src={'/images/price3.svg'} width={330} alt='card' height={2000}></Image>
                 </div>
 

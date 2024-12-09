@@ -35,8 +35,8 @@ export default function ProductDetails(/*{ params }: { params: { id: string } }*
                 <div className='w-[40%] relative max-md:w-full max-md:h-[400px]'>
                     <Image src={image} alt={'product'} layout='fill' className='object-cover'></Image>
                 </div>
-                <div className='w-[40%] flex flex-col items-start py-[36px] max-md:w-full'>
-                    <h3 className='montserrat-bold text-primaryCol text-[20px] mb-2'>{title}</h3>
+                <div className='w-[50%] flex flex-col items-start justify-start py-[16px] max-md:w-full'>
+                    <h3 className='montserrat-bold text-primaryCol text-[24px] mb-2'>{title}</h3>
                     <div className='flex ga-[5px] mb-4'>
                         <FaStar className='text-[#F3CD03]' />
                         <FaStar className='text-[#F3CD03]' />
@@ -56,16 +56,16 @@ export default function ProductDetails(/*{ params }: { params: { id: string } }*
                         Excitation venial consequent sent nostrum met.</p>
                     <hr className='bg-[#f3f3f3] h-[2px] w-[90%] my-6' />
                     <div className='flex items-start gap-[6px]'>
-                        <span className='w-[25px] h-[25px] rounded-[50%] bg-blueCol'></span>
-                        <span className='w-[25px] h-[25px] rounded-[50%] bg-[#23856D]'></span>
-                        <span className='w-[25px] h-[25px] rounded-[50%] bg-[#E77C40]'></span>
-                        <span className='w-[25px] h-[25px] rounded-[50%] bg-primaryCol'></span>
+                        <span className='w-[25px] h-[25px] rounded-[50%] bg-blueCol hover:border-[1px]'></span>
+                        <span className='w-[25px] h-[25px] rounded-[50%] bg-[#23856D] hover:border-[1px]'></span>
+                        <span className='w-[25px] h-[25px] rounded-[50%] bg-[#E77C40] hover:border-[1px]'></span>
+                        <span className='w-[25px] h-[25px] rounded-[50%] bg-primaryCol hover:border-[1px]'></span>
                     </div>
                     <div className='flex gap-[10px] items-center justify-start mt-10'>
-                        <button className='bg-blueCol text-sm text-white montserrat-bold rounded-[5px] py-[10px] px-[20px]'>Select Options</button>
-                        <div className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol'><CiHeart /></div>
-                        <div className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol'><CiShoppingCart /></div>
-                        <div className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol'><FaEye /></div>
+                        <button className='bg-blueCol text-sm text-white montserrat-bold rounded-[5px] py-[10px] px-[20px] hover:bg-blueHov'>Select Options</button>
+                        <div className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol hover:bg-[#f3f3f3]'><CiHeart /></div>
+                        <div className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol hover:bg-[#f3f3f3]'><CiShoppingCart /></div>
+                        <div className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol hover:bg-[#f3f3f3]'><FaEye /></div>
                     </div>
                 </div>
 

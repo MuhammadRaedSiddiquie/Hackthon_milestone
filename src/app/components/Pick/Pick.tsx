@@ -10,16 +10,29 @@ function Pick() {
                 </div>
                 <div className='w-full grid gap-x-[30px] grid-rows-4 grid-cols-3 grid-flow-col max-md:grid-rows-6 max-md:gap-x-0 max-md:grid-cols-1'>
                     <div className='relative h-[500px] col-span-1 row-span-4 max-md:h-[500px] max-md:row-span-2'>
-                        <Image src={'/images/pick1.svg'} alt='image' layout='fill' className='absolute'></Image>
+                        <Image src={'/images/pick1.svg'} alt='image' layout='fill' className='absolute'>
+                        </Image>
+                        <div className='w-full h-full bg-transparent flex items-end justify-start absolute z-10'>
+                            <div className='py-[12px] px-[48px] bg-[#ffffff] flex items-center mb-[35px] ml-[30px] justify-center text-sm text-black montserrat-bold'>MEN</div>
+                        </div>
                     </div>
                     <div className='relative h-[500px] col-span-1 row-span-4 max-md:h-[500px] max-md:row-span-2'>
                         <Image src={'/images/pick2.svg'} alt='image' layout='fill' className='absolute'></Image>
+                        <div className='w-full h-full bg-transparent flex items-end justify-start absolute z-10'>
+                            <div className='py-[12px] px-[48px] bg-[#ffffff] flex items-center mb-[35px] ml-[30px] justify-center text-sm text-black montserrat-bold'>WOMEN</div>
+                        </div>
                     </div>
                     <div className='relative h-[250px] col-span-1 row-span-2 max-md:h-[250px] max-md:row-span-1'>
                         <Image src={'/images/pick3.svg'} alt='image' layout='fill' className='absolute'></Image>
+                        <div className='w-full h-full bg-transparent flex items-end justify-start absolute z-10'>
+                            <div className='py-[12px] px-[36px] bg-[#ffffff] flex items-center mb-[35px] ml-[30px] justify-center text-sm text-black montserrat-bold'>ACCESSORIES</div>
+                        </div>
                     </div>
                     <div className='relative h-[250px] col-span-1 row-span-2 max-md:h-[250px] max-md:row-span-1'>
                         <Image src={'/images/pick4.svg'} alt='image' layout='fill' className='absolute'></Image>
+                        <div className='w-full h-full bg-transparent flex items-end justify-start absolute z-10'>
+                            <div className='py-[12px] px-[48px] bg-[#ffffff] flex items-center mb-[35px] ml-[30px] justify-center text-sm text-black montserrat-bold'>KIDS</div>
+                        </div>
                     </div>
 
 
