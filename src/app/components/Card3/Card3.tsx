@@ -1,13 +1,15 @@
 'use client'; 
 
 import { useRouter } from 'next/navigation';
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 
 function Card({image,title,info,price,discount}:{image:string,title:string,info:string,price:number,discount:number}) {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleCardClick = () => {
+    setIsLoading(true);
     router.push(
       `/items/${title.replace(/\s+/g, '-').toLowerCase()}?title=${encodeURIComponent(title)}&info=${encodeURIComponent(info)}&price=${price}&discount=${discount}&image=${encodeURIComponent(image)}`
     );
@@ -15,6 +17,11 @@ function Card({image,title,info,price,discount}:{image:string,title:string,info:
   
   return (
     <div className='w-[238px] h-fit flex flex-col items-center hover:scale-105 duration-500 cursor-pointer' onClick={handleCardClick}>
+      {isLoading && (
+        <div className='absolute inset-0 flex justify-center items-center bg-gray-200 opacity-75 z-10'>
+          <div className="animate-spin rounded-full border-t-4 border-blue-500 w-16 h-16"></div>
+        </div>
+      )}
       <div className='w-[238px] h-[300px] relative'>
         <Image src={image} alt='product' layout='fill' className='object-cover object-top'></Image>
       </div>
