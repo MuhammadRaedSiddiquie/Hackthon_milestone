@@ -16,7 +16,7 @@ export default function ProductDetails(/*{ params }: { params: { id: string } }*
     // const info = searchParams.get('info');
     const price = searchParams.get('price');
     // const discount = searchParams.get('discount');
-    const image = JSON.parse(searchParams.get('image') || '{}');
+    const image = searchParams.get('image') || '{}';
 
     return (
         <main className='w-full flex flex-col items-center justify-start'>
