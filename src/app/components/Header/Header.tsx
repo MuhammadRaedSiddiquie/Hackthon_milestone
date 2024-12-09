@@ -48,9 +48,9 @@ function Header() {
             <Link href={'/'}><li className='montserrat-bold text-secondaryCol text-sm'>Home</li></Link>
             <Link href={'./Product'}><li className='montserrat-bold text-secondaryCol text-sm'>Shop</li></Link>
             <Link href={'/About'}><li className='montserrat-bold text-secondaryCol text-sm'>About</li></Link>
-            <Link href={'/'}><li className='montserrat-bold text-secondaryCol text-sm'>Blog</li></Link>
-            <Link href={'/'}><li className='montserrat-bold text-secondaryCol text-sm'>Contact</li></Link>
-            <Link href={'/'}><li className='montserrat-bold text-secondaryCol text-sm'>Pages</li></Link>
+            <Link href={'/Team'}><li className='montserrat-bold text-secondaryCol text-sm'>Team</li></Link>
+            <Link href={'/Contact'}><li className='montserrat-bold text-secondaryCol text-sm'>Contact</li></Link>
+            <Link href={'/Pricing'}><li className='montserrat-bold text-secondaryCol text-sm'>Pricing</li></Link>
 
           </ul>
           <div className='flex items-center py-[10px] gap-[10px]'>
@@ -88,10 +88,12 @@ function Header() {
       </nav>
       {open ? <div className='w-full py-[25px]'>
         <ul className='flex flex-col w-full items-center gap-[25px]'>
-          <li className='montserrat-regular text-xl text-secondaryCol'>Home</li>
-          <li className='montserrat-regular text-xl text-secondaryCol'>Product</li>
-          <li className='montserrat-regular text-xl text-secondaryCol'>Pricing</li>
-          <li className='montserrat-regular text-xl text-secondaryCol'>Contact</li>
+          <Link href={'/'}><li className='montserrat-regular text-xl text-secondaryCol'>Home</li></Link>
+          <Link href={'/Product'}><li className='montserrat-regular text-xl text-secondaryCol'>Product</li></Link>
+          <Link href={'/Pricing'}><li className='montserrat-regular text-xl text-secondaryCol'>Pricing</li></Link>
+          <Link href={'/Contact'}><li className='montserrat-regular text-xl text-secondaryCol'>Contact</li></Link>
+          <Link href={'/About'}><li className='montserrat-regular text-xl text-secondaryCol'>About</li></Link>
+          <Link href={'/Team'}><li className='montserrat-regular text-xl text-secondaryCol'>Team</li></Link>
         </ul>
 
       </div> : ''}

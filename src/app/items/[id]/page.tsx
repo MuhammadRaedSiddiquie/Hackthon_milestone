@@ -3,10 +3,12 @@
 import { useSearchParams } from 'next/navigation';
 import { IoIosArrowForward } from 'react-icons/io';
 import { FaEye } from 'react-icons/fa';
-import { CiHeart,CiShoppingCart } from 'react-icons/ci';
+import { CiHeart, CiShoppingCart } from 'react-icons/ci';
 import { FaStar } from "react-icons/fa6";
 import Image from 'next/image';
 import { FaRegStarHalfStroke } from "react-icons/fa6";
+import Logos from '@/app/components/Logos/Logos';
+import Products from '@/app/components/Products/Products';
 
 
 
@@ -21,7 +23,7 @@ export default function ProductDetails(/*{ params }: { params: { id: string } }*
     return (
         <main className='w-full flex flex-col items-center justify-start'>
 
-            <div className='w-[73%] flex items-center justify-start py-[24px]'>
+            <div className='w-[73%] flex items-center justify-start py-[24px] max-md:justify-center max-md:w-full'>
 
                 <div className='flex items-center gap-[4px]'>
                     <h3 className='montserrat-bold text-primaryCol text-sm'>Home</h3>
@@ -29,12 +31,12 @@ export default function ProductDetails(/*{ params }: { params: { id: string } }*
                     <p className='montserrat-regular text-secondaryCol text-sm'>Shop</p>
                 </div>
             </div>
-            <div className='w-[73%] h-[70vh] flex justify-around'>
-                <div className='w-[40%] relative'>
+            <div className='w-[73%] h-[70vh] flex justify-around max-md:flex-col max-md:w-[90%] max-md:h-fit'>
+                <div className='w-[40%] relative max-md:w-full max-md:h-[400px]'>
                     <Image src={image} alt={'product'} layout='fill' className='object-cover'></Image>
-                    </div>
-                <div className='w-[40%] flex flex-col items-start'>
-                    <h3 className='montserrat-regular text-primaryCol text-[20px] mb-2'>{title}</h3>
+                </div>
+                <div className='w-[40%] flex flex-col items-start py-[36px] max-md:w-full'>
+                    <h3 className='montserrat-bold text-primaryCol text-[20px] mb-2'>{title}</h3>
                     <div className='flex ga-[5px] mb-4'>
                         <FaStar className='text-[#F3CD03]' />
                         <FaStar className='text-[#F3CD03]' />
@@ -68,6 +70,11 @@ export default function ProductDetails(/*{ params }: { params: { id: string } }*
                 </div>
 
 
+            </div>
+
+            <Products></Products>
+            <div className='w-[73%] max-md:hidden'>
+                <Logos></Logos>
             </div>
 
 
