@@ -1,9 +1,21 @@
-import React from 'react'
-import Image from 'next/image'
+// components/Card.tsx
+'use client'; // Needed for client-side navigation
 
-function Card({image,title,info,price,discount}:{image:string,title:string,info:string,price:number,discount:number}) {
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+
+function Card({ image, title, info, price, discount }: { image: string; title: string; info: string; price: number; discount: number }) {
+  const router = useRouter();
+
+  const handleCardClick = () => {
+    router.push(
+      `/items/${title.replace(/\s+/g, '-').toLowerCase()}?title=${encodeURIComponent(title)}&info=${encodeURIComponent(info)}&price=${price}&discount=${discount}&image=${encodeURIComponent(image)}`
+    );
+  };
+
   return (
-    <div className='w-[238px] h-[615px] flex flex-col items-center'>
+
+    <div className='w-[238px] h-[615px] flex flex-col items-center' onClick={handleCardClick} >
       <div className='w-full h-[427px] relative'>
         <Image src={image} alt='product' layout='fill'></Image>
       </div>
@@ -22,8 +34,11 @@ function Card({image,title,info,price,discount}:{image:string,title:string,info:
         </div>
       </div>
       
-    </div>
-  )
+    </ div>
+      );
 }
 
-export default Card
+      export default Card;
+
+
+

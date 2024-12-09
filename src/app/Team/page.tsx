@@ -1,6 +1,5 @@
 import React from 'react'
 import { IoIosArrowForward } from 'react-icons/io'
-import Image from 'next/image'
 import Card4 from '../components/Card4/Card4'
 
 function page() {
