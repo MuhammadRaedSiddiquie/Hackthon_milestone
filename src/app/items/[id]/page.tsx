@@ -43,8 +43,6 @@ export default function ProductDetails(/*{ params }: { params: { id: string } }*
                         <FaStar className='text-[#F3CD03]' />
                         <FaStar className='text-[#F3CD03]' />
                         <FaRegStarHalfStroke className='text-[#F3CD03]' />
-
-
                     </div>
                     <h3 className='montserrat-bold text-primaryCol text-[24px] mb-2'>${price}</h3>
                     <div className='flex gap-2'>
@@ -70,6 +68,69 @@ export default function ProductDetails(/*{ params }: { params: { id: string } }*
                 </div>
 
 
+            </div>
+            <div className='w-full flex flex-col items-start gap-[24px] pt-[100px] px-[20px] max-md:items-center'>
+            <h2 className='montserrat-bold text-primaryCol text-[40px] max-md:text-[24px]'>Customer Reviews :</h2>
+                <div className='w-full flex px-[20px] justify-between max-md:flex-col max-md:gap-[25px]'>
+                    <div className='w-[48%] h-[200px] flex flex-col items-start px-10 gap-[10px] justify-center bg-[#f3f3f3] rounded-[30px] max-md:items-center max-md:w-full'>
+                    
+                    <h1 className='montserrat-bold text-primaryCol text-[58px] leading-[3rem]'>4.2</h1>
+                    <div className='flex gap-[5px]'>
+                        <FaStar className='text-[#F3CD03] text-3xl' />
+                        <FaStar className='text-[#F3CD03] text-3xl' />
+                        <FaStar className='text-[#F3CD03] text-3xl' />
+                        <FaStar className='text-[#F3CD03] text-3xl' />
+                        <FaRegStarHalfStroke className='text-[#F3CD03] text-3xl' />
+                    </div>
+                    <p className='montserrat-regular text-blueCol text-sm'>All from verified resources</p>
+                </div>
+                <div className='w-[48%] h-[200px] flex flex-col items-start px-10 gap-[10px] justify-center bg-[#f3f3f3] rounded-[30px] max-md:w-full'>
+                    <div className='flex gap-[10px] items-center'>
+                        <div className='flex gap-[5px]'>
+                            <FaStar className='text-[#F3CD03] text-base' />
+                            <FaStar className='text-[#F3CD03] text-base' />
+                            <FaStar className='text-[#F3CD03] text-base' />
+                            <FaStar className='text-[#F3CD03] text-base' />
+                            <FaStar className='text-[#F3CD03] text-base' />
+                        </div>
+                        <p className='montserrat-regular text-secondaryCol text-sm'>(99)</p>
+                    </div>
+                    <div className='flex gap-[10px] items-center'>
+                        <div className='flex gap-[5px]'>
+                            <FaStar className='text-[#F3CD03] text-base' />
+                            <FaStar className='text-[#F3CD03] text-base' />
+                            <FaStar className='text-[#F3CD03] text-base' />
+                            <FaStar className='text-[#F3CD03] text-base' />
+
+                        </div>
+                        <p className='montserrat-regular text-secondaryCol text-sm'>(99)</p>
+                    </div>
+                    <div className='flex gap-[10px] items-center'>
+                        <div className='flex gap-[5px]'>
+                            <FaStar className='text-[#F3CD03] text-base' />
+                            <FaStar className='text-[#F3CD03] text-base' />
+                            <FaStar className='text-[#F3CD03] text-base' />
+
+                        </div>
+                        <p className='montserrat-regular text-secondaryCol text-sm'>(99)</p>
+                    </div>
+                    <div className='flex gap-[10px] items-center'>
+                        <div className='flex gap-[5px]'>
+                            <FaStar className='text-[#F3CD03] text-base' />
+                            <FaStar className='text-[#F3CD03] text-base' />
+
+                        </div>
+                        <p className='montserrat-regular text-secondaryCol text-sm'>(99)</p>
+                    </div>
+                    <div className='flex gap-[10px] items-center'>
+                        <div className='flex gap-[5px]'>
+                            <FaStar className='text-[#F3CD03] text-base' />
+                            
+
+                        </div>
+                        <p className='montserrat-regular text-secondaryCol text-sm'>(99)</p>
+                    </div>
+                </div></div>
             </div>
 
             <Products></Products>
