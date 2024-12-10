@@ -9,13 +9,13 @@ function Card4({image,title,subtitle}:{image:string,title:string,subtitle:string
         <Image className='absolute' src={image} alt={title} layout='fill'></Image>
     </div>
     <div className='w-full flex flex-col items-center gap-[10px]'>
-        <h2 className='text-base montserrat-bold text-primaryCol'>{title}</h2>
-        <h3 className='text-sm montserrat-bold text-secondaryCol'>{subtitle}</h3>
+        <h2 className='text-base montserrat-bold text-primaryCol xxl:text-[22px]'>{title}</h2>
+        <h3 className='text-sm montserrat-bold text-secondaryCol xxl:text-xl'>{subtitle}</h3>
     </div>
     <div className='w-full flex items-end justify-center gap-[20px]'>
-      <FaFacebook className='text-2xl text-blueCol hover:text-blueHov' />
-      <FaInstagram className='text-2xl text-blueCol hover:text-blueHov' />
-      <FaTwitter className='text-2xl text-blueCol hover:text-blueHov' />
+      <FaFacebook className='text-2xl text-blueCol hover:text-blueHov xxl:text-3xl' />
+      <FaInstagram className='text-2xl text-blueCol hover:text-blueHov xxl:text-3xl' />
+      <FaTwitter className='text-2xl text-blueCol hover:text-blueHov xxl:text-3xl' />
     </div>
 
   

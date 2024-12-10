@@ -8,8 +8,8 @@ function Faq() {
                 <IoIosArrowForward className='text-blueCol text-3xl' />
             </div>
             <div className='w-[90%] flex flex-col items-start gap-[10px]'>
-                <h4 className='montserrat-bold text-primaryCol text-base'>The quick fox jumps over the lazy dog</h4>
-                <p className='montserrat-regular text-secondaryCol text-sm'>Met minim Mollie non desert Alamo est sit cliquey
+                <h4 className='montserrat-bold text-primaryCol text-base xxl:text-[22px]'>The quick fox jumps over the lazy dog</h4>
+                <p className='montserrat-regular text-secondaryCol text-sm xxl:text-xl'>Met minim Mollie non desert Alamo est sit cliquey
                     dolor do met sent. RELIT official consequent door ENIM
                     RELIT Mollie. Excitation venial consequent sent
                     nostrum met.</p>

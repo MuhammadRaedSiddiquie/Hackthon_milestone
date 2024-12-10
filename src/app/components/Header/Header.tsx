@@ -22,49 +22,49 @@ function Header() {
       <div className='w-full h-[58px] bg-[#252B42] flex items-center justify-between px-[24px] max-md:hidden'>
         <div className='flex items-center gap-[10px]'>
           <div className='flex items-center gap-[5px] py-[10px] px-[10px]'>
-            <FiPhone className='text-white' />
-            <p className='montserrat-bold text-sm text-white'>(225) 555-0118</p>
+            <FiPhone className='text-white xxl:text-2xl' />
+            <p className='montserrat-bold text-sm text-white xxl:text-lg'>(225) 555-0118</p>
           </div>
           <div className='flex items-center gap-[5px] py-[10px] px-[10px]'>
-            <TfiEmail className='text-white' />
-            <p className='montserrat-bold text-sm text-white'>michelle.rivera@example.com</p>
+            <TfiEmail className='text-white xxl:text-2xl' />
+            <p className='montserrat-bold text-sm text-white xxl:text-lg'>michelle.rivera@example.com</p>
           </div>
         </div>
-        <p className='montserrat-bold text-sm text-white'>Follow Us  and get a chance to win 80% off</p>
+        <p className='montserrat-bold text-sm text-white xxl:text-lg'>Follow Us  and get a chance to win 80% off</p>
         <div className='flex items-center gap-[10px] px-[10px] py-[10px]'>
-          <p className='montserrat-bold text-sm text-white'>Follow Us :</p>
+          <p className='montserrat-bold text-sm text-white xxl:text-lg'>Follow Us :</p>
           <div className='flex items-center gap-[10px]'>
-            <FaInstagram className='text-white' />
-            <FaYoutube className='text-white' />
-            <FaFacebook className='text-white' />
-            <FaTwitter className='text-white' />
+            <FaInstagram className='text-white xxl:text-2xl' />
+            <FaYoutube className='text-white xxl:text-2xl' />
+            <FaFacebook className='text-white xxl:text-2xl' />
+            <FaTwitter className='text-white xxl:text-2xl' />
           </div>
         </div>
       </div>
       <nav className='w-full h-[58px] bg-white flex items-center justify-between px-[30px] gap-[40px]'>
-        <h1 className='text-[24px] montserrat-bolder text-primaryCol'>Bandage</h1>
+        <h1 className='text-[24px] montserrat-bolder text-primaryCol xxl:text-4xl'>Bandage</h1>
         <div className='w-[80%] flex items-center justify-between max-md:hidden'>
           <ul className='flex items-center gap-[15px]'>
-            <Link href={'/'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov'>Home</li></Link>
-            <Link href={'./Product'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov'>Shop</li></Link>
-            <Link href={'/About'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov'>About</li></Link>
-            <Link href={'/Team'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov'>Team</li></Link>
-            <Link href={'/Contact'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov'>Contact</li></Link>
-            <Link href={'/Pricing'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov'>Pricing</li></Link>
+            <Link href={'/'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov xxl:text-xl'>Home</li></Link>
+            <Link href={'./Product'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov xxl:text-xl'>Shop</li></Link>
+            <Link href={'/About'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov xxl:text-xl'>About</li></Link>
+            <Link href={'/Team'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov xxl:text-xl'>Team</li></Link>
+            <Link href={'/Contact'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov xxl:text-xl'>Contact</li></Link>
+            <Link href={'/Pricing'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov xxl:text-xl'>Pricing</li></Link>
 
           </ul>
           <div className='flex items-center py-[10px] gap-[10px]'>
             <div className='flex items-center gap-2 px-[10px] cursor-pointer'>
-              <FaRegUser className='text-[#23A6F0]' />
-              <p className='montserrat-bold text-[#23A6F0] text-sm hover:text-blueHov'>Login / Signup</p>
+              <FaRegUser className='text-[#23A6F0] xxl:text-2xl' />
+              <p className='montserrat-bold text-[#23A6F0] text-sm hover:text-blueHov xxl:text-xl'>Login / Signup</p>
             </div>
             <div className='flex items-center px-[10px] cursor-pointer'>
-              <IoCartOutline className='text-[#23A6F0] text-xl hover:text-blueHov' />
-              <p className='montserrat-bold text-[#23A6F0] text-sm'>1</p>
+              <IoCartOutline className='text-[#23A6F0] text-xl hover:text-blueHov xxl:text-3xl' />
+              <p className='montserrat-bold text-[#23A6F0] text-sm xxl:text-xl'>1</p>
             </div>
             <div className='flex items-center px-[10px] cursor-pointer'>
-              <CiHeart className='text-[#23A6F0] text-xl hover:text-blueHov' />
-              <p className='montserrat-bold text-[#23A6F0] text-sm'>1</p>
+              <CiHeart className='text-[#23A6F0] text-xl hover:text-blueHov xxl:text-3xl' />
+              <p className='montserrat-bold text-[#23A6F0] text-sm xxl:text-xl'>1</p>
             </div>
           </div>
         </div>
@@ -73,12 +73,12 @@ function Header() {
           <IoCartOutline className='text-primaryCol hover:text-primaryHov text-2xl' />
           {open ? (
             <IoClose
-              className="text-primaryCol hover:text-primaryHov text-2xl"
+              className="text-primaryCol hover:text-primaryHov text-2xl xxl:text-4xl"
               onClick={() => setOpen(false)}
             />
           ) : (
             <HiMiniBars3BottomRight
-              className="text-primaryCol hover:text-primaryHov text-2xl"
+              className="text-primaryCol hover:text-primaryHov text-2xl xxl:text-4xl"
               onClick={() => setOpen(true)}
             />
           )}
@@ -88,12 +88,12 @@ function Header() {
       </nav>
       {open ? <div className='w-full py-[25px]'>
         <ul className='flex flex-col w-full items-center gap-[25px]'>
-          <Link href={'/'}><li className='montserrat-regular text-xl text-secondaryCol hover:text-secondaryHov'>Home</li></Link>
-          <Link href={'/Product'}><li className='montserrat-regular text-xl text-secondaryCol hover:text-secondaryHov'>Product</li></Link>
-          <Link href={'/Pricing'}><li className='montserrat-regular text-xl text-secondaryCol hover:text-secondaryHov'>Pricing</li></Link>
-          <Link href={'/Contact'}><li className='montserrat-regular text-xl text-secondaryCol hover:text-secondaryHov'>Contact</li></Link>
-          <Link href={'/About'}><li className='montserrat-regular text-xl text-secondaryCol hover:text-secondaryHov'>About</li></Link>
-          <Link href={'/Team'}><li className='montserrat-regular text-xl text-secondaryCol hover:text-secondaryHov'>Team</li></Link>
+          <Link href={'/'}><li className='montserrat-regular text-xl text-secondaryCol hover:text-secondaryHov xxl:text-xl'>Home</li></Link>
+          <Link href={'/Product'}><li className='montserrat-regular text-xl text-secondaryCol hover:text-secondaryHov xxl:text-xl'>Product</li></Link>
+          <Link href={'/Pricing'}><li className='montserrat-regular text-xl text-secondaryCol hover:text-secondaryHov xxl:text-xl'>Pricing</li></Link>
+          <Link href={'/Contact'}><li className='montserrat-regular text-xl text-secondaryCol hover:text-secondaryHov xxl:text-xl'>Contact</li></Link>
+          <Link href={'/About'}><li className='montserrat-regular text-xl text-secondaryCol hover:text-secondaryHov xxl:text-xl'>About</li></Link>
+          <Link href={'/Team'}><li className='montserrat-regular text-xl text-secondaryCol hover:text-secondaryHov xxl:text-xl'>Team</li></Link>
         </ul>
 
       </div> : ''}
