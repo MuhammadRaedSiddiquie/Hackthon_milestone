@@ -22,13 +22,13 @@ function Pick() {
                             <div className='py-[12px] px-[48px] bg-[#ffffff] flex items-center mb-[35px] ml-[30px] justify-center text-sm text-black montserrat-bold xxl:text-xl'>WOMEN</div>
                         </div>
                     </div>
-                    <div className='relative h-[250px] col-span-1 row-span-2 max-md:h-[250px] max-md:row-span-1 xxl:h-[285px]'>
+                    <div className='relative h-[235px] col-span-1 row-span-2 max-md:h-[250px] max-md:row-span-1 xxl:h-[285px]'>
                         <Image src={'/images/pick3.svg'} alt='image' layout='fill' className='absolute object-cover object-top'></Image>
                         <div className='w-full h-full bg-transparent flex items-end justify-start absolute z-10'>
                             <div className='py-[12px] px-[36px] bg-[#ffffff] flex items-center mb-[35px] ml-[30px] justify-center text-sm text-black montserrat-bold xxl:text-xl'>ACCESSORIES</div>
                         </div>
                     </div>
-                    <div className='relative h-[250px] col-span-1 row-span-2 max-md:h-[250px] max-md:row-span-1 xxl:h-[285px]'>
+                    <div className='relative h-[235px] col-span-1 row-span-2 max-md:h-[250px] max-md:row-span-1 xxl:h-[285px]'>
                         <Image src={'/images/pick4.svg'} alt='image' layout='fill' className='absolute object-cover object-top'></Image>
                         <div className='w-full h-full bg-transparent flex items-end justify-start absolute z-10'>
                             <div className='py-[12px] px-[48px] bg-[#ffffff] flex items-center mb-[35px] ml-[30px] justify-center text-sm text-black montserrat-bold xxl:text-xl'>KIDS</div>

@@ -10,7 +10,7 @@ function Products() {
                     <h1 className='montserrat-bold text-primaryCol text-[24px] xxl:text-4xl'>BEST SELLER PRODUCTS</h1>
                     <p className='montserrat-regular text-secondaryCol text-sm xxl:text-xl'>Problems trying to resolve the conflict between </p>
                 </div>
-                <div className='w-full grid grid-cols-4 place-items-center grid-flow-row max-md:place-items-center max-md:grid-cols-1'>
+                <div className='w-full grid xx:grid-cols-4 gap-x-[30px] place-items-center grid-flow-row max-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'>
                     <Card
                         image={'/images/product-1.svg'}
                         title={'Graphic Designer'}

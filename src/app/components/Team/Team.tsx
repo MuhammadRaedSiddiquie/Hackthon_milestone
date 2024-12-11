@@ -9,7 +9,7 @@ function Team() {
                 <p className='montserrat-bold text-sm text-secondaryCol xxl:text-xl'>Problems trying to resolve the conflict between
                     the two major realms of Classical physics: Newtonian mechanics </p>
             </div>
-            <div className='w-full flex items-center justify-center gap-[30px] max-md:flex-col'>
+            <div className='w-full flex items-center justify-center gap-[30px] max-l:flex-wrap'>
 
                 <Card4
                     image={'/images/person-1.svg'}

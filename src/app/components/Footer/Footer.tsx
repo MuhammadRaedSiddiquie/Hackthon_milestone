@@ -14,7 +14,7 @@ function Footer() {
           </div>
         </div>
         <hr className='w-full h-[2px] bg-[E6E6E6]' />
-        <div className='w-full flex items-start py-[50px] justify-between max-md:flex-col max-md:gap-[40px]'>
+        <div className='w-full flex items-start py-[50px] justify-between max-l:flex-col max-l:gap-[40px]'>
           <ul className='flex flex-col gap-[20px] items-start'>
             <h1 className='montserrat-bold text-base text-primaryCol xxl:text-[22px]'>Company Info</h1>
             <li className='cursor-pointer text-sm text-secondaryCol montserrat-bold hover:text-secondaryHov xxl:text-xl'>About Us</li>

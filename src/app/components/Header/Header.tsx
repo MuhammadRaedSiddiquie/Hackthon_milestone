@@ -68,7 +68,7 @@ function Header() {
             </div>
           </div>
         </div>
-        <div className='hidden w-[35%] items-center gap-[15px] max-md:flex'>
+        <div className='hidden w-[35%] items-center gap-[15px] justify-end max-md:flex'>
           <IoMdSearch className='text-primaryCol hover:text-primaryHov text-2xl' />
           <IoCartOutline className='text-primaryCol hover:text-primaryHov text-2xl' />
           {open ? (

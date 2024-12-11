@@ -19,7 +19,7 @@ function AboutPage() {
   }
   return (
     <main className='w-full flex flex-col items-center justify-start'>
-      <div className='w-[73%] h-[80vh] flex items-center justify-center max-md:flex-col max-md:h-fit max-md:w-[90%]'>
+      <div className='w-[73%] xx:h-[80vh] flex items-center justify-center max-md:flex-col max-md:h-fit max-md:w-[90%] md:h-[60vh] l:h-[70vh]'>
         <div className='w-[50%] flex flex-col gap-[30px] items-start max-md:py-[112px] max-md:w-[75%] max-md:w-full max-md:items-center'>
           <h3 className='montserrat-bold text-secondaryCol text-base max-md:hidden xxl:text-[22px]'>ABOUT COMPANY</h3>
           <h1 className='montserrat-bold text-primaryCol text-[40px] max-md:text-center'>ABOUT US</h1>
@@ -34,8 +34,8 @@ function AboutPage() {
           <Image src={'/images/carousel3.svg'} alt='carousel 3' layout='fill' className='absolute'></Image>
         </div>
       </div>
-      <div ref={ref} className='w-[73%] py-[80px] flex items-center max-md:flex-col max-md:py-[112px] max-md:w-[95%] max-md:gap-[100px]'>
-        <div className='flex flex-col items-center w-[25%] max-md:w-full'>
+      <div ref={ref} className='w-[73%] py-[80px] flex flex-wrap items-center max-md:py-[112px] max-l:w-[95%] max-sm:gap-[60px]'>
+        <div className='flex flex-col items-center lg:mb-0 lg:w-[25%] max-md:w-full sm:w-[50%] sm:mb-[25px]'>
           <h1 className='montserrat-bold text-primaryCol text-[58px]'>
             {hasAnimated ? (
               <CountUp start={0} end={15} duration={2.5} separator="," />
@@ -45,9 +45,9 @@ function AboutPage() {
           </h1>
           <p className='montserrat-bold text-secondaryCol text-base text-center xxl:text-[22px]'>Happy Customers</p>
         </div>
-        <div className='flex flex-col items-center w-[25%] max-md:w-full'>
+        <div className='flex flex-col items-center lg:mb-0 lg:w-[25%] max-md:w-full sm:w-[50%] sm:mb-[25px]'>
           <h1 className='montserrat-bold text-primaryCol text-[58px]'>
-          {hasAnimated ? (
+            {hasAnimated ? (
               <CountUp start={0} end={150} duration={2.5} separator="," />
             ) : (
               "0"
@@ -55,9 +55,9 @@ function AboutPage() {
           </h1>
           <p className='montserrat-bold text-secondaryCol text-base text-center xxl:text-[22px]'>Monthly Visitors</p>
         </div>
-        <div className='flex flex-col items-center w-[25%] max-md:w-full'>
+        <div className='flex flex-col items-center lg:mb-0 lg:w-[25%] max-md:w-full sm:w-[50%] sm:mb-[25px]'>
           <h1 className='montserrat-bold text-primaryCol text-[58px]'>
-          {hasAnimated ? (
+            {hasAnimated ? (
               <CountUp start={0} end={15} duration={2.5} separator="," />
             ) : (
               "0"
@@ -65,9 +65,9 @@ function AboutPage() {
           </h1>
           <p className='montserrat-bold text-secondaryCol text-base text-center xxl:text-[22px]'>Countries Worldwide</p>
         </div>
-        <div className='flex flex-col items-center w-[25%] max-md:w-full'>
+        <div className='flex flex-col items-center lg:mb-0 lg:w-[25%] max-md:w-full sm:w-[50%] sm:mb-[25px]'>
           <h1 className='montserrat-bold text-primaryCol text-[58px]'>
-          {hasAnimated ? (
+            {hasAnimated ? (
               <CountUp start={0} end={100} duration={2.5} separator="," />
             ) : (
               "0"

@@ -11,7 +11,7 @@ function Feature() {
                     <p className='montserrat-regular text-secondaryCol text-sm xxl:text-xl'>Problems trying to resolve the conflict between
                         the two major realms of Classical physics: Newtonian mechanics </p>
                 </div>
-                <div className='w-full flex items-center justify-center gap-[30px] max-md:flex-col'>
+                <div className='w-full flex items-center justify-center gap-[30px] max-l:flex-wrap'>
                     <Card2
                         image='/images/feature1.svg'
                         title='Loudest la Madison 1

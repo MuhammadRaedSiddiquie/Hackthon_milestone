@@ -73,7 +73,7 @@ function page() {
             <div className='w-[73%] h-fit'>
                 <Logos></Logos>
             </div>
-            <div className='w-[73%] pt-[40px] grid grid-cols-4 grid-flow-row place-items-center max-md:grid-cols-1'>
+            <div className='w-[73%] pt-[40px] grid xx:grid-cols-4 gap-x-[30px] grid-flow-row place-items-center max-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'>
                 <Card3
                     image={'/images/product9.svg'}
                     title={'Graphic Designer'}

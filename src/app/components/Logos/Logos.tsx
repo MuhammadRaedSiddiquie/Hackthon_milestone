@@ -8,7 +8,7 @@ function Logos() {
             <div className='w-[20%] h-[100px] bg-center bg-no-cover bg-no-repeat bg-[url("/images/logo3.svg")] max-md:w-[90%]'></div>
             <div className='w-[20%] h-[100px] bg-center bg-no-cover bg-no-repeat bg-[url("/images/logo4.svg")] max-md:w-[90%]'></div>
             <div className='w-[20%] h-[100px] bg-center bg-no-cover bg-no-repeat bg-[url("/images/logo5.svg")] max-md:w-[90%]'></div>
-            <div className='w-[20%] h-[100px] bg-center bg-no-cover bg-no-repeat bg-[url("/images/logo6.svg")] max-md:w-[90%]'></div>
+            <div className='w-[20%] h-[100px] bg-center bg-no-cover bg-no-repeat bg-[url("/images/logo6.svg")] max-md:w-[90%] max-l:hidden'></div>
         </div>
     )
 }
