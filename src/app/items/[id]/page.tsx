@@ -23,7 +23,7 @@ export default function ProductDetails(/*{ params }: { params: { id: string } }*
     return (
         <main className='w-full flex flex-col items-center justify-start'>
 
-            <div className='w-[73%] flex items-center justify-start py-[24px] max-md:justify-center max-md:w-full'>
+            <div className='w-[73%] flex items-center justify-start py-[24px] max-lg:justify-center max-lg:w-full'>
 
                 <div className='flex items-center gap-[4px]'>
                     <h3 className='montserrat-bold text-primaryCol text-sm xxl:text-2xl'>Home</h3>
@@ -31,11 +31,11 @@ export default function ProductDetails(/*{ params }: { params: { id: string } }*
                     <p className='montserrat-regular text-secondaryCol text-sm xxl:text-2xl'>Shop</p>
                 </div>
             </div>
-            <div className='w-[73%] h-[70vh] flex justify-around max-md:flex-col max-md:w-[90%] max-md:h-fit'>
-                <div className='w-[40%] relative max-md:w-full max-md:h-[400px]'>
-                    <Image src={image} alt={'product'} layout='fill' className='object-cover'></Image>
+            <div className='w-[73%] xl:h-[70vh] flex justify-around max-lg:flex-col max-lg:w-[90%] max-lg:h-fit lg:h-[50vh] xx:h-[60vh]'>
+                <div className='w-[40%] relative max-lg:w-full max-lg:h-[400px]'>
+                    <Image src={image} alt={'product'} layout='fill' className='object-cover object-center'></Image>
                 </div>
-                <div className='w-[50%] flex flex-col items-start justify-start py-[16px] max-md:w-full xxl:gap-[15px]'>
+                <div className='w-[50%] flex flex-col items-start justify-start py-[16px] max-lg:w-full xxl:gap-[15px]'>
                     <h3 className='montserrat-bold text-primaryCol text-[24px] mb-2 xxl:text-4xl'>{title}</h3>
                     <div className='flex ga-[5px] mb-4'>
                         <FaStar className='text-[#F3CD03] xxl:text-3xl' />
@@ -61,17 +61,17 @@ export default function ProductDetails(/*{ params }: { params: { id: string } }*
                     </div>
                     <div className='flex gap-[10px] items-center justify-start mt-10'>
                         <button className='bg-blueCol text-sm text-white montserrat-bold rounded-[5px] py-[10px] px-[20px] hover:bg-blueHov xxl:text-xl'>Select Options</button>
-                        <div className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol hover:bg-[#f3f3f3]'><CiHeart /></div>
-                        <div className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol hover:bg-[#f3f3f3]'><CiShoppingCart /></div>
-                        <div className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol hover:bg-[#f3f3f3]'><FaEye /></div>
+                        <div className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol hover:bg-[#e3e3e3]'><CiHeart /></div>
+                        <div className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol hover:bg-[#e3e3e3]'><CiShoppingCart /></div>
+                        <div className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol hover:bg-[#e3e3e3]'><FaEye /></div>
                     </div>
                 </div>
 
 
             </div>
-            <div className='w-full flex flex-col items-start gap-[24px] pt-[100px] px-[20px] max-md:items-center'>
+            <div className='w-[73%] flex flex-col items-start gap-[24px] pt-[100px] px-[20px] max-lg:items-center max-lg:w-[90%]'>
             <h2 className='montserrat-bold text-primaryCol text-[40px] max-md:text-[24px]'>Customer Reviews :</h2>
-                <div className='w-full flex px-[20px] justify-between max-md:flex-col max-md:gap-[25px]'>
+                <div className='w-full flex px-[20px] justify-between max-md:flex-col max-lg:gap-[25px]'>
                     <div className='w-[48%] h-[200px] flex flex-col items-start px-10 gap-[10px] justify-center bg-[#f3f3f3] rounded-[30px] max-md:items-center max-md:w-full'>
                     
                     <h1 className='montserrat-bold text-primaryCol text-[58px] leading-[3rem]'>4.2</h1>
@@ -84,7 +84,7 @@ export default function ProductDetails(/*{ params }: { params: { id: string } }*
                     </div>
                     <p className='montserrat-regular text-blueCol text-sm xxl:text-xl'>All from verified resources</p>
                 </div>
-                <div className='w-[48%] h-[200px] flex flex-col items-start px-10 gap-[10px] justify-center bg-[#f3f3f3] rounded-[30px] max-md:w-full'>
+                <div className='w-[48%] h-[200px] flex flex-col items-start px-10 gap-[10px] justify-center bg-[#f3f3f3] rounded-[30px] max-lg:w-full'>
                     <div className='flex gap-[10px] items-center'>
                         <div className='flex gap-[5px]'>
                             <FaStar className='text-[#F3CD03] text-base xxl:text-xl' />
@@ -134,7 +134,7 @@ export default function ProductDetails(/*{ params }: { params: { id: string } }*
             </div>
 
             <Products></Products>
-            <div className='w-[73%] max-md:hidden'>
+            <div className='w-[73%] max-lg:hidden'>
                 <Logos></Logos>
             </div>
 

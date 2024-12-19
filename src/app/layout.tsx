@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { UserProvider } from '@auth0/nextjs-auth0/client';
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "./components/Header/Header";
@@ -28,15 +29,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <title>Hackathon</title>
+        <title>Bandage</title>
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-         <Header></Header>
-        {children}
-        <Footer></Footer>
-      </body>
+      <UserProvider>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+          <Header></Header>
+          {children}
+          <Footer></Footer>
+        </body>
+      </UserProvider>
     </html>
   );
 }

@@ -9,14 +9,19 @@ import { HiMiniBars3BottomRight } from "react-icons/hi2";
 import { IoCartOutline } from "react-icons/io5";
 import { FaInstagram, FaFacebook, FaTwitter, FaYoutube } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import { useUser } from '@auth0/nextjs-auth0/client';
 import Link from 'next/link';
+import Dialogdemo from '../Dialogdemo/Dialogdemo';
+import Image from 'next/image';
 
 
 
 function Header() {
 
   const [open, setOpen] = useState(false)
+  const { user} = useUser();
 
+  
   return (
     <header className='w-full h-fit flex flex-col gap-[12px]'>
       <div className='w-full h-[58px] bg-[#252B42] flex items-center justify-between px-[24px] max-md:hidden'>
@@ -54,10 +59,16 @@ function Header() {
 
           </ul>
           <div className='flex items-center py-[10px] gap-[10px]'>
-            <div className='flex items-center gap-2 px-[10px] cursor-pointer'>
-              <FaRegUser className='text-[#23A6F0] xxl:text-2xl' />
-              <p className='montserrat-bold text-[#23A6F0] text-sm hover:text-blueHov xxl:text-xl'>Login / Signup</p>
-            </div>
+          <div className='flex items-center gap-2 px-[10px] cursor-pointer'>
+          {user ? <div className='w-[40px] h-[40px] rounded-full relative'>
+            {user.picture ? <Image className='absolute object-cover rounded-full' src={user.picture} alt={"pic"}></Image> : ""}
+          </div> :
+            <FaRegUser className='text-[#23A6F0] xxl:text-2xl' />}
+          {user ? <Dialogdemo></Dialogdemo>
+            : <a href="/api/auth/login"><p className='montserrat-bold text-[#23A6F0] text-sm hover:text-blueHov xxl:text-xl'>Login / Signup</p></a>
+          }
+        </div>
+            
             <div className='flex items-center px-[10px] cursor-pointer'>
               <IoCartOutline className='text-[#23A6F0] text-xl hover:text-blueHov xxl:text-3xl' />
               <p className='montserrat-bold text-[#23A6F0] text-sm xxl:text-xl'>1</p>
@@ -82,6 +93,7 @@ function Header() {
               onClick={() => setOpen(true)}
             />
           )}
+
         </div>
 
 
