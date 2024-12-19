@@ -61,7 +61,7 @@ function Header() {
           <div className='flex items-center py-[10px] gap-[10px]'>
           <div className='flex items-center gap-2 px-[10px] cursor-pointer'>
           {user ? <div className='w-[40px] h-[40px] rounded-full relative'>
-            {user.picture ? <Image className='absolute object-cover rounded-full' src={user.picture} alt={"pic"}></Image> : ""}
+            {user.picture ? <Image className='absolute object-cover rounded-full' src={user.picture} alt={"pic"} layout='fill'></Image> : ""}
           </div> :
             <FaRegUser className='text-[#23A6F0] xxl:text-2xl' />}
           {user ? <Dialogdemo></Dialogdemo>
