@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FiPhone } from "react-icons/fi";
 import { TfiEmail } from "react-icons/tfi";
 import { FaRegUser } from "react-icons/fa6";
@@ -21,7 +21,22 @@ function Header() {
   const [open, setOpen] = useState(false)
   const { user} = useUser();
 
+  const [cartSize, setCartSize] = useState(0)
   
+  useEffect(() => {
+    const updateCartSize = () => {
+      const cartStored = JSON.parse(localStorage.getItem('cart') || '[]');
+      setCartSize(cartStored.length);
+    };
+    updateCartSize();
+    setInterval(()=>{
+      updateCartSize();
+    },1000)
+    
+    
+  }, [])
+
+
   return (
     <header className='w-full h-fit flex flex-col gap-[12px]'>
       <div className='w-full h-[58px] bg-[#252B42] flex items-center justify-between px-[24px] max-md:hidden'>
@@ -51,7 +66,7 @@ function Header() {
         <div className='w-[80%] flex items-center justify-between max-md:hidden'>
           <ul className='flex items-center gap-[15px]'>
             <Link href={'/'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov xxl:text-xl'>Home</li></Link>
-            <Link href={'./Product'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov xxl:text-xl'>Shop</li></Link>
+            <Link href={'/Product'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov xxl:text-xl'>Shop</li></Link>
             <Link href={'/About'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov xxl:text-xl'>About</li></Link>
             <Link href={'/Team'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov xxl:text-xl'>Team</li></Link>
             <Link href={'/Contact'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov xxl:text-xl'>Contact</li></Link>
@@ -59,24 +74,26 @@ function Header() {
 
           </ul>
           <div className='flex items-center py-[10px] gap-[10px]'>
-          <div className='flex items-center gap-2 px-[10px] cursor-pointer'>
-          {user ? <div className='w-[40px] h-[40px] rounded-full relative'>
+            <div className='flex items-center gap-2 px-[10px] cursor-pointer'>
+              {user ? <div className='w-[40px] h-[40px] rounded-full relative'>
             {user.picture ? <Image className='absolute object-cover rounded-full' src={user.picture} alt={"pic"} layout='fill'></Image> : ""}
           </div> :
             <FaRegUser className='text-[#23A6F0] xxl:text-2xl' />}
           {user ? <Dialogdemo></Dialogdemo>
             : <a href="/api/auth/login"><p className='montserrat-bold text-[#23A6F0] text-sm hover:text-blueHov xxl:text-xl'>Login / Signup</p></a>
           }
-        </div>
-            
-            <div className='flex items-center px-[10px] cursor-pointer'>
-              <IoCartOutline className='text-[#23A6F0] text-xl hover:text-blueHov xxl:text-3xl' />
-              <p className='montserrat-bold text-[#23A6F0] text-sm xxl:text-xl'>1</p>
             </div>
-            <div className='flex items-center px-[10px] cursor-pointer'>
+
+           <Link href={'/Cart'}> <div className='flex items-center px-[10px] cursor-pointer'>
+              <IoCartOutline className='text-[#23A6F0] text-xl hover:text-blueHov xxl:text-3xl' />
+              {
+                cartSize>0? <p className='montserrat-bold text-white w-[20px] h-[20px] rounded-[50%] flex items-center justify-center text-sm bg-blueCol xxl:text-xl'>{cartSize}</p>:''
+              }
+            </div></Link>
+            <Link href={'/Likes'}><div className='flex items-center px-[10px] cursor-pointer'>
               <CiHeart className='text-[#23A6F0] text-xl hover:text-blueHov xxl:text-3xl' />
               <p className='montserrat-bold text-[#23A6F0] text-sm xxl:text-xl'>1</p>
-            </div>
+            </div></Link>
           </div>
         </div>
         <div className='hidden w-[35%] items-center gap-[15px] justify-end max-md:flex'>

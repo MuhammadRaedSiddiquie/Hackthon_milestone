@@ -8,8 +8,8 @@ import { IoIosArrowForward } from "react-icons/io";
 
 function Card2({ image, title, info}: { image: string, title: string, info: string}) {
     return (
-        <div className='w-[328px] h-[606px] flex flex-col items-center border-b-[1px] border-secondaryCol cursor-pointer hover:scale-105 duration-500'>
-            <div className='w-full h-[300px] relative'>
+        <div className='w-[328px] h-[606px] flex flex-col items-center border-b-[1px] border-secondaryCol cursor-pointer'>
+            <div className='w-full h-[300px] relative hover:scale-105 duration-500'>
                 <Image src={image} alt='product' layout='fill'></Image>
             </div>
             <div className='flex flex-col items-start gap-[10px] px-[20px] pt-[25px] pb-[35px]'>

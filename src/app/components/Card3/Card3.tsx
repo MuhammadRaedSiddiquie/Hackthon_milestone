@@ -8,11 +8,17 @@ function Card({image,title,info,price,discount}:{image:string,title:string,info:
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleCardClick = () => {
+  const handleCardClick =async () => {
     setIsLoading(true);
-    router.push(
-      `/items/${title.replace(/\s+/g, '-').toLowerCase()}?title=${encodeURIComponent(title)}&info=${encodeURIComponent(info)}&price=${price}&discount=${discount}&image=${encodeURIComponent(image)}`
-    );
+    try {
+      await router.push(
+        `/items/${title.replace(/\s+/g, '-').toLowerCase()}?title=${encodeURIComponent(title)}&info=${encodeURIComponent(info)}&price=${price}&discount=${discount}&image=${encodeURIComponent(image)}`
+      );
+    } catch (error) {
+      console.error("Navigation failed", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
   
   return (
