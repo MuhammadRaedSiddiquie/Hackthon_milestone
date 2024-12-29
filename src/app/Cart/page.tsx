@@ -84,7 +84,7 @@ const CartPage = () => {
                     <button className='px-[15px] py-[12px] rounded-[12px] text-black bg-[#f3f3f3]' onClick={()=>{updateQuantity(product.id,1)}}>+</button>
                   </div>
                   <div className='flex items-center justify-center w-[20%]'>
-                    <h3 className='text-black montserrat-semibold text-lg'>{product.price*product.quantity}</h3>
+                    <h3 className='text-black montserrat-semibold text-lg'>{parseInt(product.price)*product.quantity}</h3>
                   </div>
                   <div className='flex items-center justify-center w-[10%]'>
                   <button className='h-[30px] w-[30px] bg-red-500 rounded-[50%] text-white text-center' onClick={() => removeCartItem(product.id)}>X</button>

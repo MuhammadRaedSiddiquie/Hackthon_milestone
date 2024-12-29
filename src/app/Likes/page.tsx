@@ -3,13 +3,26 @@ import React from 'react'
 import { useState ,useEffect} from 'react';
 import Card from '../components/Card/Card';
 
+
+
+interface ProductProps {
+    id: string;
+    title: string;
+    price: string;
+    image: string;
+    info:string;
+    discount:string;
+    color:string;
+    isLiked:boolean;
+    quantity: number;
+  }
 const LikePage = () => {
 
     const [cartItem,setCartItem]=useState([])
 
     useEffect(()=>{
         const cartStored = JSON.parse(localStorage.getItem('cart') || '[]')
-        const updateCart=cartStored.filter((item)=>(item.isLiked))
+        const updateCart=cartStored.filter((item:ProductProps)=>(item.isLiked)) 
         setCartItem(updateCart);
     },[])
     
@@ -22,7 +35,7 @@ const LikePage = () => {
                 </div>
                 <div className='w-full grid xx:grid-cols-4 gap-x-[30px] place-items-center grid-flow-row max-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'>
                    {
-                    cartItem.map((item)=>(
+                    cartItem.map((item:ProductProps)=>(
                         <Card key={item.id}
                         image={item.image}
                         title={item.title}
