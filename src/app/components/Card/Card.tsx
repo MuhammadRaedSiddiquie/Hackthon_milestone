@@ -33,8 +33,8 @@ function Card({ image, title, info, price, discount }: { image: string; title: s
         <Image src={image} alt='product' layout='fill'></Image>
       </div>
       <div className='flex flex-col items-center gap-[10px] px-[25px] pb-[35px] pt-[25px]'>
-        <h2 className='montserrat-bold text-black text-base xxl:text-[22px]'>{title}</h2>
-        <p className='montserrat-bold text-secondaryCol text-sm xxl:text-xl'>{info}</p>
+        <h2 className='montserrat-bold text-black text-base line-clamp-1 xxl:text-[22px]'>{title}</h2>
+        <p className='montserrat-bold text-secondaryCol text-sm text-center line-clamp-3 xxl:text-xl'>{info}</p>
         <div className='flex items-center gap-[5px]'>
           <p className='text-[#BDBDBD] montserrat-bold text-base xxl:text-[22px]'>${price}</p>
           <p className='text-[#23856D] montserrat-bold text-base xxl:text-[22px]'>${discount}</p>
