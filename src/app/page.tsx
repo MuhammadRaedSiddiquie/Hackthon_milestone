@@ -8,12 +8,31 @@ import Products from "./components/Products/Products";
 import Summer from "./components/Summer/Summer";
 
 export default function Home() {
+  const query=`*[_type == "product"]{
+    id,
+    title,
+    description,
+    images[]{
+      _key,
+      asset->{url} // This fetches the image URL from the asset reference
+    },
+    category,
+    price,
+    discountPercentage,
+    rating,
+    tags[],
+    stock,
+    brand,
+    availabilityStatus
+  }`;
 
   return (
     <main className="w-full flex flex-col justify-center items-center">
       <Hero></Hero>
       <Pick></Pick>
-      <Products></Products>
+      <Products
+      query={query}
+      ></Products>
       <Carousel2></Carousel2>
       <Summer></Summer>
       <Feature></Feature>

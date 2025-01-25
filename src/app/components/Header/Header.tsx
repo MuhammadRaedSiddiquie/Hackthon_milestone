@@ -13,6 +13,8 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import Link from 'next/link';
 import Dialogdemo from '../Dialogdemo/Dialogdemo';
 import Image from 'next/image';
+import { getSession } from '@auth0/nextjs-auth0';
+
 
 
 
@@ -20,7 +22,7 @@ function Header() {
 
   const [open, setOpen] = useState(false)
   const { user} = useUser();
-
+  const userId = user?.sub;
   const [cartSize, setCartSize] = useState(0)
   
   useEffect(() => {
