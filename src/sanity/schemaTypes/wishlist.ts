@@ -1,4 +1,3 @@
-// schemas/wishlist.js
 export default {
   name: 'wishlist',
   type: 'document',

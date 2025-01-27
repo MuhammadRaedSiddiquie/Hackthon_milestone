@@ -3,7 +3,8 @@ import product from './product'
 import wishlist from './wishlist'
 import cart from './cart'
 import cartItem from './cartItem'
+import shipment from './shipment'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [product,cart,wishlist,cartItem],
+  types: [product,cart,wishlist,cartItem,shipment],
 }

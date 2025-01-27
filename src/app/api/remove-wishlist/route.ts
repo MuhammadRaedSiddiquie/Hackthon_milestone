@@ -5,6 +5,8 @@ export async function DELETE(req: NextRequest) {
     try {
         const body = await req.json();
         const { userId, productId } = body;
+        console.log(userId,typeof(userId))
+        console.log(productId,typeof(productId))
 
         // Validate inputs
         if (!userId || typeof userId !== 'string') {
@@ -21,40 +23,39 @@ export async function DELETE(req: NextRequest) {
         }
 
         // Fetch the user's cart
-        const cart = await sanityClient.fetch(
-            `*[_type == "cart" && userId == $userId][0]`,
+        const wishlist = await sanityClient.fetch(
+            `*[_type == "wishlist" && userId == $userId][0]`,
             { userId }
         );
 
-        if (!cart) {
+        if (!wishlist) {
             return NextResponse.json(
-                { error: 'Cart or user not found.' },
+                { error: 'wishlist or user not found.' },
                 { status: 404 }
             );
         }
 
         // Check if the product exists in the cart
-        const productExists = cart.items?.some(item => item.product._ref === productId);
-
-        if (!productExists) {
+        const wishlistExists = wishlist.products?.some(item => item.productId === productId);
+        if (!wishlistExists) {
             return NextResponse.json(
-                { error: 'Product not found in the cart.' },
+                { error: 'Product not found in the wishlist.' },
                 { status: 400 }
             );
         }
 
         // Update the cart to remove the product
-        const updatedCart = await sanityClient
-            .patch(cart._id)
-            .unset([`items[product._ref=="${productId}"]`]) // Remove the product by its `_ref`
+        const updatedWishlist = await sanityClient
+            .patch(wishlist._id)
+            .unset([`products[productId=="${productId}"]`]) // Remove the product by its `_ref`
             .commit();
 
         return NextResponse.json(
-            { message: 'Item removed from cart successfully.', cart: updatedCart },
+            { message: 'Item removed from wishlist successfully.', updatedWishlist },
             { status: 200 }
         );
     } catch (error) {
-        console.error('Error in remove-cart API:', error.message);
+        console.error('Error in remove-wishlist API:', error.message);
         return NextResponse.json(
             { error: 'Server error occurred.' },
             { status: 500 }

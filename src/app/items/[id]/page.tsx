@@ -4,7 +4,8 @@ import axios from 'axios'
 import { useParams } from 'next/navigation';
 import { IoIosArrowForward } from 'react-icons/io';
 import { FaEye } from 'react-icons/fa';
-import { CiHeart, CiShoppingCart } from 'react-icons/ci';
+import { CiHeart, CiShoppingCart } from 'react-icons/ci'
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
 import Image from 'next/image';
 import { FaRegStarHalfStroke } from "react-icons/fa6";
@@ -13,13 +14,20 @@ import Products from '@/app/components/Products/Products';
 import { useEffect, useState } from 'react';
 import { fetchData } from '@/lib/fetchData';
 import { useUser } from '@auth0/nextjs-auth0/client';
+import { UserColorManagerProvider } from 'sanity';
 
 
 export default function ProductDetails() {
     const params = useParams();
     const [product, setProduct] = useState < any > (null)
     const [loading, setLoading] = useState(false)
-    const query=`*[_type == "product"]{
+    const [isInWishlist, setIsInWishlist] = useState(false)
+    const [selectedCol, setColor] = useState('#23A6F0');
+    const { user } = useUser();
+    const userId = user?.sub;
+
+
+    const query = `*[_type == "product"]{
         id,
         title,
         description,
@@ -39,27 +47,48 @@ export default function ProductDetails() {
     useEffect(() => {
         const id = params?.id;
 
-
         setLoading(true)
         if (id) {
+
             const fetchProduct = async () => {
                 const dataQuery = `*[_type == "product" && id == $id]{id,title,description,images[]{_key,asset->{url} },category,price,discountPercentage,rating,tags[],stock,brand,availabilityStatus}`;
                 const data = await fetchData(dataQuery, { id })
                 setProduct(data[0])
-                console.log("data fetched products", data)
                 setLoading(false)
+
             }
             fetchProduct();
         }
-
         else {
             setLoading(false);
         }
-    }, [params])
-    const [selectedCol, setColor] = useState('#23A6F0');
-    const { user } = useUser();
-    const userId = user?.sub;
-    
+    }, [params.id])
+
+    useEffect(() => {
+        if (userId && product) {
+            console.log('Checking wishlist with:', { userId, productId: product.id });
+            checkWishlist();
+        }
+    }, [userId, product]);
+
+    const checkWishlist = async () => {
+        const { id } = product;
+        try {
+            const response = await axios.get('/api/check-wishlist', {
+                params: {
+                    userId,
+                    productId: id,
+                },
+            });
+            console.log('API Response:', response.data);
+            setIsInWishlist(response.data.isInWishlist);
+        } catch (error) {
+            console.error('Error checking wishlist:', error);
+        }
+    };
+
+
+
     async function addToCart(userId, product) {
         const { image, id, price } = product;
 
@@ -81,8 +110,8 @@ export default function ProductDetails() {
         }
     }
     async function addToWishlist(userId, product) {
-        const { images, id, price,title,description,discountPercentage,rating } = product;
-        const image=images[0]?.asset?.url;
+        const { images, id, price, title, description, discountPercentage, rating } = product;
+        const image = images[0]?.asset?.url;
         try {
             const response = await axios.post('/api/add-to-wishlist', {
                 userId,
@@ -94,7 +123,7 @@ export default function ProductDetails() {
                 discountPercentage,
                 rating
             });
-
+            setIsInWishlist(true)
             if (response.data.success) {
                 alert('Product added to cart successfully!');
             }
@@ -103,7 +132,27 @@ export default function ProductDetails() {
             alert('Failed to add product to cart.');
         }
     }
-    
+    async function removeFromWishlist(userId, product) {
+
+        const { id } = product;
+
+        try {
+            const response = await axios.delete('/api/remove-wishlist', {
+                data: {
+                    userId,
+                    productId: id,
+                }
+            });
+            setIsInWishlist(false)
+            if (response.data.success) {
+                alert('Product removed from wishlist successfully!');
+            }
+        } catch (error) {
+            console.error('Error removing from wishlist:', error);
+            alert('Failed to remove product from wishlist.');
+        }
+    }
+
 
     return (
         <main className='w-full flex flex-col items-center justify-start'>
@@ -153,7 +202,12 @@ export default function ProductDetails() {
 
                         <button onClick={() => addToCart(userId, product)} className='bg-blueCol text-sm text-white montserrat-bold rounded-[5px] py-[10px] px-[20px] hover:bg-blueHov xxl:text-xl'>
                             Select Options</button>
-                        <div onClick={()=>addToWishlist(userId,product)} className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol hover:bg-[#e3e3e3]'><CiHeart /></div>
+                        <button onClick={() => {
+                            isInWishlist ? removeFromWishlist(userId, product) : addToWishlist(userId, product);
+                        }} className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol hover:bg-[#e3e3e3]'>
+                            {isInWishlist ? <FaHeart /> : <FaRegHeart />}
+                        </button>
+                        {/* <div onClick={() => addToWishlist(userId, product)} className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol hover:bg-[#e3e3e3]'>{isInWishlist ? <FaHeart /> : <FaRegHeart />}</div> */}
                         <div className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol hover:bg-[#e3e3e3]'><CiShoppingCart /></div>
                         <div className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol hover:bg-[#e3e3e3]'><FaEye /></div>
                     </div>
@@ -220,8 +274,8 @@ export default function ProductDetails() {
                     </div>
                 </div>
             </div>
-            <Products 
-            query={query}></Products>
+            <Products
+                query={query}></Products>
             <div className='w-[73%] max-lg:hidden'>
                 <Logos></Logos>
             </div>

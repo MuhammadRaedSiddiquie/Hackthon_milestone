@@ -35,6 +35,7 @@ function Products({
     params?: Record<string, any>;
   }) {
     const [data, setData] = useState < Product[] > ([]);
+    const [page,setPage]=useState({num1:1,num2:9})
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -49,8 +50,9 @@ function Products({
         };
 
         fetchData();
+        console.log('fetched data products:',data)
 
-    }, []); // Empty dependency array ensures it runs only once
+    }, [query]); // Empty dependency array ensures it runs only once
 
 
 
