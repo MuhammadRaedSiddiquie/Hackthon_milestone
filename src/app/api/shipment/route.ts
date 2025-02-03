@@ -1,48 +1,29 @@
+import { NextApiRequest, NextApiResponse } from 'next';
 
-import { NextRequest, NextResponse } from "next/server";
+// Mock database (replace with your actual database logic)
+const shipments: any[] = [];
 
-export async function POST(req: NextRequest) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    if (req.method !== 'POST') {
+        return res.status(405).json({ message: 'Method Not Allowed' });
+    }
+
     try {
-        // Parse the incoming JSON body
-        const body = await req.json();
-        const { name, address, city, postal, country, phone, userId, orderId } = body;
-console.log(name,
-    address,
-    city,
-    postal,
-    country,
-    phone,
-    userId,
-    orderId,)
-        if (!name || !address || !city || !postal || !country || !phone || !userId || !orderId) {
-            return NextResponse.json(
-                { error: "Missing required fields" },
-                { status: 400 }
-            );
-        }
+        const { userId, orderId, ...shipmentDetails } = req.body;
 
-        // Here you would typically call your database or shipping service API
-        // Simulate shipment creation
+        // Save shipment details to the database
         const shipment = {
-            id: `SHIP_${Date.now()}`,
-            name,
-            address,
-            city,
-            postal,
-            country,
-            phone,
+            id: shipments.length + 1,
             userId,
             orderId,
+            ...shipmentDetails,
             createdAt: new Date().toISOString(),
         };
+        shipments.push(shipment);
 
-        // Respond with the created shipment
-        return NextResponse.json({ success: true, shipment }, { status: 201 });
+        res.status(200).json({ message: 'Shipment saved successfully', shipment });
     } catch (error) {
-        console.error("Error creating shipment:", error);
-        return NextResponse.json(
-            { error: "Failed to create shipment" },
-            { status: 500 }
-        );
+        console.error('Error saving shipment:', error);
+        res.status(500).json({ message: 'Failed to save shipment', error: error.message });
     }
 }
