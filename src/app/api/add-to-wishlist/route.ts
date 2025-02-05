@@ -7,10 +7,10 @@ import { Description } from '@radix-ui/react-dialog';
 
 export async function POST(req: NextRequest) {
     try {
-        const { userId, productId, price, title, description, image, discountPercentage, rating } = await req.json();
+        const { userId, id, price, title, description, image, discountPercentage, rating } = await req.json();
 console.log(image,"image")
         // Validation
-        if (!userId || !productId || !price) {
+        if (!userId || !id || !price) {
             return NextResponse.json({ error: 'Invalid data' }, { status: 400 });
         }
 
@@ -19,15 +19,15 @@ console.log(image,"image")
             { userId }
         );
         console.log(existingWishlist)
-        console.log(productId)
+        console.log(id)
         if (existingWishlist) {
             const isAlreadyInWishlist = existingWishlist.products.some(
-                (item: any) => item.productId == productId
+                (item: any) => item.id == id
             );
             console.log(isAlreadyInWishlist)
 
             if (!isAlreadyInWishlist) {
-                existingWishlist.products.push({ productId, price, title, description, image, discountPercentage, rating });
+                existingWishlist.products.push({ id, price, title, description, image, discountPercentage, rating });
                 await sanityClient.patch(existingWishlist._id)
                     .set({ products: existingWishlist.products })
                     .commit();
@@ -36,7 +36,7 @@ console.log(image,"image")
             await sanityClient.create({
                 _type: 'wishlist',
                 userId,
-                products: [{ productId, price, title, description, image, discountPercentage, rating }],
+                products: [{ id, price, title, description, image, discountPercentage, rating }],
             });
         }
 

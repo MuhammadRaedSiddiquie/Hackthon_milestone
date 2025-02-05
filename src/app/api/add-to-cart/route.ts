@@ -27,32 +27,51 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
 
-    //Check if cart already exists
+    // Check if cart already exists
     const existingCart = await sanityClient.fetch(
       `*[_type == "cart" && userId == $userId][0]`,
-      {userId}
+      { userId }
     );
+    console.log(existingCart,'existing')
 
     if (existingCart) {
-      // Update existing cart
-      const updatedCart = await sanityClient
-        .patch(existingCart._id)
-        .setIfMissing({ items: [] })
-        .append('items', [
-          {
-            _key: nanoid(),
-            _type: 'cartItem',
-            product: { _type: 'reference', _ref: product._id },
-            quantity,
-            price,
-            image,
-          },
-        ])
-        .commit();
+      // Check if the product already exists in the cart
+      const existingItemIndex = existingCart.items.findIndex(
+        (item) => item.product._ref === product._id
+      );
+      console.log(existingItemIndex,'index')
 
-      return NextResponse.json(updatedCart, { status: 200 });
-    }
-     else {
+      if (existingItemIndex !== -1) {
+        // Product exists in the cart, update its quantity
+        const updatedItems = [...existingCart.items];
+        updatedItems[existingItemIndex].quantity += quantity;
+
+        const updatedCart = await sanityClient
+          .patch(existingCart._id)
+          .set({ items: updatedItems })
+          .commit();
+
+        return NextResponse.json(updatedCart, { status: 200 });
+      } else {
+        // Product does not exist in the cart, add it
+        const newItem = {
+          _key: nanoid(),
+          _type: 'cartItem',
+          product: { _type: 'reference', _ref: product._id },
+          quantity,
+          price,
+          image,
+        };
+
+        const updatedCart = await sanityClient
+          .patch(existingCart._id)
+          .setIfMissing({ items: [] })
+          .append('items', [newItem])
+          .commit();
+
+        return NextResponse.json(updatedCart, { status: 200 });
+      }
+    } else {
       // Create new cart
       const newCart = {
         _type: 'cart',
@@ -61,7 +80,7 @@ export async function POST(req: Request) {
           {
             _key: nanoid(),
             _type: 'cartItem',
-            product: { _type: 'reference', _ref: product._id},
+            product: { _type: 'reference', _ref: product._id },
             quantity,
             price,
             image,

@@ -34,6 +34,8 @@ function Products({
     query: string;
     params?: Record<string, any>;
   }) {
+    console.log(query,"query recieved in products")
+    console.log(params,"params recieved in products")
     const [data, setData] = useState < Product[] > ([]);
     const [page,setPage]=useState({num1:1,num2:9})
     useEffect(() => {
@@ -46,6 +48,7 @@ function Products({
 
             } catch (error) {
                 console.error("Error fetching data:", error);
+                console.log('error in data fetched successfully')
             }
         };
 
@@ -69,7 +72,7 @@ function Products({
                     <p className='montserrat-regular text-secondaryCol text-sm xxl:text-xl'>Problems trying to resolve the conflict between </p>
                 </div>
                 <div className='w-full grid xx:grid-cols-4 gap-x-[30px] place-items-center grid-flow-row max-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'>
-                    {data.map((product) => (
+                    {data?.map((product) => (
                         <Card
                             id={product.id}
                             image={product.images?.[0]?.asset?.url||product.image}

@@ -9,6 +9,7 @@ const client = createClient({
 
 // Utility function for querying Sanity
 export async function fetchData(query: string, params: Record<string, any> = {}) {
+  
   try {
     return await client.fetch(query, params);
   } catch (error) {

@@ -6,36 +6,42 @@ import { FaRegUser } from "react-icons/fa6";
 import { CiHeart } from "react-icons/ci";
 import { IoMdSearch } from "react-icons/io";
 import { HiMiniBars3BottomRight } from "react-icons/hi2";
-import { IoCartOutline } from "react-icons/io5";
+import { IoCartOutline, IoSearch } from "react-icons/io5";
 import { FaInstagram, FaFacebook, FaTwitter, FaYoutube } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { useUser } from '@auth0/nextjs-auth0/client';
 import Link from 'next/link';
 import Dialogdemo from '../Dialogdemo/Dialogdemo';
 import Image from 'next/image';
-import { getSession } from '@auth0/nextjs-auth0';
-
-
+import { useRouter } from 'next/navigation';
 
 
 function Header() {
 
   const [open, setOpen] = useState(false)
-  const { user} = useUser();
+  const { user } = useUser();
   const userId = user?.sub;
   const [cartSize, setCartSize] = useState(0)
-  
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const router = useRouter();
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?query=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  }
+
   useEffect(() => {
     const updateCartSize = () => {
       const cartStored = JSON.parse(localStorage.getItem('cart') || '[]');
       setCartSize(cartStored.length);
     };
     updateCartSize();
-    setInterval(()=>{
+    setInterval(() => {
       updateCartSize();
-    },1000)
-    
-    
+    }, 1000)
+
+
   }, [])
 
 
@@ -75,21 +81,29 @@ function Header() {
             <Link href={'/Pricing'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov xxl:text-xl'>Pricing</li></Link>
 
           </ul>
+
+          <form onSubmit={handleSearch} className=" flex py-[4px] items-center gap-2 border border-[#c3c3c3] rounded-[18px] px-1">
+            <input className='px-[10px] bg-white text-black ring-0 outline-0' type='text' placeholder='Search for Product...' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+            <button type="submit" className="bg-white text-black text-[12px] rounded-full px-1 py-1">
+              <IoSearch className="text-[20px] text-primaryCol" />
+            </button>
+          </form>
+
           <div className='flex items-center py-[10px] gap-[10px]'>
             <div className='flex items-center gap-2 px-[10px] cursor-pointer'>
               {user ? <div className='w-[40px] h-[40px] rounded-full relative'>
-            {user.picture ? <Image className='absolute object-cover rounded-full' src={user.picture} alt={"pic"} layout='fill'></Image> : ""}
-          </div> :
-            <FaRegUser className='text-[#23A6F0] xxl:text-2xl' />}
-          {user ? <Dialogdemo></Dialogdemo>
-            : <a href="/api/auth/login"><p className='montserrat-bold text-[#23A6F0] text-sm hover:text-blueHov xxl:text-xl'>Login / Signup</p></a>
-          }
+                {user.picture ? <Image className='absolute object-cover rounded-full' src={user.picture} alt={"pic"} layout='fill'></Image> : ""}
+              </div> :
+                <FaRegUser className='text-[#23A6F0] xxl:text-2xl' />}
+              {user ? <Dialogdemo></Dialogdemo>
+                : <a href="/api/auth/login"><p className='montserrat-bold text-[#23A6F0] text-sm hover:text-blueHov xxl:text-xl'>Login / Signup</p></a>
+              }
             </div>
 
-           <Link href={'/Cart'}> <div className='flex items-center px-[10px] cursor-pointer'>
+            <Link href={'/Cart'}> <div className='flex items-center px-[10px] cursor-pointer'>
               <IoCartOutline className='text-[#23A6F0] text-xl hover:text-blueHov xxl:text-3xl' />
               {
-                cartSize>0? <p className='montserrat-bold text-white w-[20px] h-[20px] rounded-[50%] flex items-center justify-center text-sm bg-blueCol xxl:text-xl'>{cartSize}</p>:''
+                cartSize > 0 ? <p className='montserrat-bold text-white w-[20px] h-[20px] rounded-[50%] flex items-center justify-center text-sm bg-blueCol xxl:text-xl'>{cartSize}</p> : ''
               }
             </div></Link>
             <Link href={'/Likes'}><div className='flex items-center px-[10px] cursor-pointer'>

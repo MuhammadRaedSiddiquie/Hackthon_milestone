@@ -1,31 +1,14 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import Products from '../components/Products/Products'
-import { fetchData } from '@/lib/fetchData';
-import { dataset } from '@/sanity/env';
+
 
 const WishlistPage = () => {
-    const query = `*[_type == "product"]{
-        id,
-        title,
-        description,
-        images[]{
-          _key,
-          asset->{url} // This fetches the image URL from the asset reference
-        },
-        category,
-        price,
-        discountPercentage,
-        rating,
-        tags[],
-        stock,
-        brand,
-        availabilityStatus
-      }`;
+   
     const userId = 'google-oauth2|102988815370920618477'
     const dataQuery = `
   *[_type == "wishlist" && userId==$params][0].products[]{
-    productId,
+    id,
     title,
     price,
     rating,

@@ -24,7 +24,7 @@ export default function Home() {
     stock,
     brand,
     availabilityStatus
-  }`;
+}[0...28]`;
 
   return (
     <main className="w-full flex flex-col justify-center items-center">

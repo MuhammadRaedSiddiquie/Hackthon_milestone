@@ -10,7 +10,7 @@ const client = createClient({
     apiVersion: 'v2025-01-18', // Use a specific API version
 });
 
-const apiUrl = 'https://dummyjson.com/products';
+const apiUrl = 'https://dummyjson.com/products?limit=194';
 
 // Helper function to upload an image to Sanity
 async function uploadImage(url) {

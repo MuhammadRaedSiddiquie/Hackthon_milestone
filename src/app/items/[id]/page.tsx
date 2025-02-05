@@ -15,11 +15,16 @@ import { useEffect, useState } from 'react';
 import { fetchData } from '@/lib/fetchData';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { UserColorManagerProvider } from 'sanity';
+import useCartStore from '@/app/stores/useCartStore';
+import { nanoid } from 'nanoid';
+import { toast } from 'react-toastify';
+
+
 
 
 export default function ProductDetails() {
     const params = useParams();
-    const [product, setProduct] = useState < any > (null)
+    const [product, setProduct] = useState<any>(null)
     const [loading, setLoading] = useState(false)
     const [isInWishlist, setIsInWishlist] = useState(false)
     const [selectedCol, setColor] = useState('#23A6F0');
@@ -51,8 +56,9 @@ export default function ProductDetails() {
         if (id) {
 
             const fetchProduct = async () => {
-                const dataQuery = `*[_type == "product" && id == $id]{id,title,description,images[]{_key,asset->{url} },category,price,discountPercentage,rating,tags[],stock,brand,availabilityStatus}`;
+                const dataQuery = `*[_type == "product" && id == $id]{_id,id,title,description,images[]{_key,asset->{url} },category,price,discountPercentage,rating,tags[],stock,brand,availabilityStatus}`;
                 const data = await fetchData(dataQuery, { id })
+                console.log(data,'item fetched')
                 setProduct(data[0])
                 setLoading(false)
 
@@ -66,8 +72,9 @@ export default function ProductDetails() {
 
     useEffect(() => {
         if (userId && product) {
-            console.log('Checking wishlist with:', { userId, productId: product.id });
+
             checkWishlist();
+            console.log('wishlist checked', isInWishlist)
         }
     }, [userId, product]);
 
@@ -80,7 +87,7 @@ export default function ProductDetails() {
                     productId: id,
                 },
             });
-            console.log('API Response:', response.data);
+
             setIsInWishlist(response.data.isInWishlist);
         } catch (error) {
             console.error('Error checking wishlist:', error);
@@ -89,33 +96,90 @@ export default function ProductDetails() {
 
 
 
-    async function addToCart(userId, product) {
-        const { image, id, price } = product;
+    // async function addToCart(userId, product) {
+    //     const { image, id, price } = product;
+
+    //     try {
+    //         const response = await axios.post('/api/add-to-cart', {
+    //             userId,
+    //             productId: id,
+    //             quantity: 1,
+    //             price,
+    //             image,
+    //         });
+
+    //         if (response.data.success) {
+    //             alert('Product added to cart successfully!');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error adding to cart:', error);
+    //         alert('Failed to add product to cart.');
+    //     }
+    // }
+
+
+    const addToCart = async (
+        userId: any,
+        title:string,
+        productId: any,
+        price: number,
+        image: string
+    ) => {
+        console.log(userId,productId,price,image)
+        const newItem = {
+            _key: Math.random().toString(36).substring(7), // Generate a unique key
+            product: {
+                _id: productId,
+                title, // Replace with actual product data
+                price,
+                images: [{ asset: { url: image } }],
+            },
+            quantity:1,
+        };
+
+        // Optimistically update local state
+        useCartStore.getState().addItem(newItem);
 
         try {
-            const response = await axios.post('/api/add-to-cart', {
-                userId,
-                productId: id,
-                quantity: 1,
-                price,
-                image,
-            });
+            const response = await fetch('/api/cart', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  userId,
+                  title,
+                  productId,
+                  quantity:1,
+                  price,
+                  image,
+                }),
+              });
+              
+              const data = await response.json();
+              console.log(data,"add to cart");
 
-            if (response.data.success) {
-                alert('Product added to cart successfully!');
+            if (response.status === 200) {
+                toast.success('Product added to cart!');
+            } else {
+                // Revert local state if API call fails
+                useCartStore.getState().removeItem(productId);
+                toast.error('Failed to add product to cart');
             }
         } catch (error) {
+            useCartStore.getState().removeItem(productId);
             console.error('Error adding to cart:', error);
-            alert('Failed to add product to cart.');
+            toast.error('Failed to add product to cart');
         }
-    }
+    };
+
     async function addToWishlist(userId, product) {
         const { images, id, price, title, description, discountPercentage, rating } = product;
         const image = images[0]?.asset?.url;
         try {
             const response = await axios.post('/api/add-to-wishlist', {
                 userId,
-                productId: id,
+                id,
                 price,
                 title,
                 description,
@@ -200,7 +264,7 @@ export default function ProductDetails() {
                     </div>
                     <div className='flex gap-[10px] items-center justify-start mt-10'>
 
-                        <button onClick={() => addToCart(userId, product)} className='bg-blueCol text-sm text-white montserrat-bold rounded-[5px] py-[10px] px-[20px] hover:bg-blueHov xxl:text-xl'>
+                        <button onClick={() => addToCart(userId,product.title, product._id,product.price,product.images?.[0]?.asset?.url)} className='bg-blueCol text-sm text-white montserrat-bold rounded-[5px] py-[10px] px-[20px] hover:bg-blueHov xxl:text-xl'>
                             Select Options</button>
                         <button onClick={() => {
                             isInWishlist ? removeFromWishlist(userId, product) : addToWishlist(userId, product);

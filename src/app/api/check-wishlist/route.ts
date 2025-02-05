@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
         const { searchParams } = new URL(req.url);
         const userId = searchParams.get('userId');
         const productId = searchParams.get('productId');
-        console.log("fetched userid & product id", productId, userId)
+        
 
         // Validate inputs
         if (!userId || !productId) {
@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
             `*[_type == "wishlist" && userId == $userId][0]`,
             { userId }
         );
-        console.log('fetched wishlist', wishlist)
+
 
         if (!wishlist) {
             return NextResponse.json(
@@ -34,16 +34,15 @@ export async function GET(req: NextRequest) {
         // Check if the product exists in the wishlist
         //const isInWishlist = wishlist.products?.some(item => item.productId === productId);
         const isInWishlist = wishlist.products?.some((item) => {
-            console.log('Comparing:', item.productId, productId);
-            return item.productId === productId;
+         
+            return item.id === productId;
         });
-        console.log('Wishlist Products:', wishlist.products);
-        console.log('Product Exists:', wishlist.products.some((item) => item.productId === productId));
+
 
         // Respond with the wishlist status
         return NextResponse.json({ isInWishlist }, { status: 200 });
     } catch (error) {
-        console.error('Error in check-wishlist API:', error.message);
+
         return NextResponse.json(
             { error: 'Server error occurred.' },
             { status: 500 }
