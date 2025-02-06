@@ -61,7 +61,7 @@ import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
   const { shipToAddress, packages } = await req.json();
-  console.log(shipToAddress)
+  
   try {
     const shipmentDetails = await shipEngine.getRatesWithShipmentDetails({
       shipment: {

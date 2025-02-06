@@ -26,17 +26,20 @@ import {
     PaginationPrevTrigger,
     PaginationRoot,
 } from "@/components/ui/pagination"
+import { ConfigResolutionError } from 'sanity';
 
 
 function page() {
     const [value, setValue] = useState<string[]>([])
     const [data, setData] = useState([]);
+    const [sort, setSort] = useState('')
     const frameworks = createListCollection({
         items: [
+            { label: "No Filter", value: "no" },
             { label: "Low to High", value: "low" },
             { label: "High to Low", value: "high" },
-            { label: "Most Liked", value: "popular" },
-            { label: "Most Reviewed", value: "reviewed" },
+            { label: "Most Discount", value: "discount" },
+            { label: "Most Rated", value: "rated" },
         ],
     })
     const query = `*[_type == "product"]{
@@ -44,16 +47,16 @@ function page() {
         title,
         description,
         images[]{
-          _key,
-          asset->{url} // This fetches the image URL from the asset reference
-        },
-        category,
-        price,
-        discountPercentage,
-        rating,
-        tags[],
-        stock,
-        brand,
+            _key,
+            asset->{url} // This fetches the image URL from the asset reference
+            },
+            category,
+            price,
+            discountPercentage,
+            rating,
+            tags[],
+            stock,
+            brand,
         availabilityStatus
     }`;
     useEffect(() => {
@@ -61,23 +64,28 @@ function page() {
             try {
                 const response = await client.fetch(query);
                 setData(response);
-                console.log('data fetched successfully product page', response,)
-
-
+                
+                
             } catch (error) {
                 console.error("Error fetching data:", error);
                 console.log('error in data fetched successfully')
             }
         };
-
+        
         fetchData();
         console.log('fetched data products:', data)
-
+        
     }, [])
+    const [sorted, setSorted] = useState(data);
+    useEffect(()=>{
+        setSorted(data)
+    },[data])
     const [currentPage, setCurrentPage] = useState(1);
+    const [display,setDisplay]=useState('')
     const ProductsPerPage = 24;
     const totalPages = Math.ceil(data.length / ProductsPerPage)
-    const paginatedData = data.slice((currentPage - 1) * ProductsPerPage, currentPage * ProductsPerPage)
+    const paginatedData = sorted.slice((currentPage - 1) * ProductsPerPage, currentPage * ProductsPerPage)
+    
     const CustomPagination = ({ currentPage, totalPages, onPageChange }) => {
         return (
             <div className="flex items-center gap-2">
@@ -93,12 +101,71 @@ function page() {
                     onClick={() => onPageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
                     className="p-2 bg-gray-200 rounded"
-                >
+                    >
                     Next
                 </button>
             </div>
         );
     };
+    const productSorting = () => {
+        switch (sort[0]) {
+            case 'no':
+                setSorted(data)
+                break;
+            case 'low':
+                let lowPrice=[...data]
+                for(let i=0;i<=data.length-2;i++){
+                    for(let j=0;j<=data.length-2;j++){
+                        if(lowPrice[j].price > lowPrice[j+1].price){
+                            let temp=lowPrice[j]
+                            lowPrice[j]=lowPrice[j+1]
+                            lowPrice[j+1]=temp
+                        }
+                    }
+                }
+                setSorted(lowPrice)
+                break;
+            case 'high':
+                let highPrice=[...data]
+                for(let i=0;i<=data.length-2;i++){
+                    for(let j=0;j<=data.length-2;j++){
+                        if(highPrice[j].price < highPrice[j+1].price){
+                            let temp=highPrice[j]
+                            highPrice[j]=highPrice[j+1]
+                            highPrice[j+1]=temp
+                        }
+                    }
+                }
+                setSorted(highPrice)
+                break;
+            case 'discount':
+                let discounted=[...data]
+                for(let i=0;i<=data.length-2;i++){
+                    for(let j=0;j<=data.length-2;j++){
+                        if(discounted[j].discountPercentage < discounted[j+1].discountPercentage){
+                            let temp=discounted[j]
+                            discounted[j]=discounted[j+1]
+                            discounted[j+1]=temp
+                        }
+                    }
+                }
+                setSorted(discounted)
+                break;
+            case 'rated':
+                let rated=[...data]
+                for(let i=0;i<=data.length-2;i++){
+                    for(let j=0;j<=data.length-2;j++){
+                        if(rated[j].rating < rated[j+1].rating){
+                            let temp=rated[j]
+                            rated[j]=rated[j+1]
+                            rated[j+1]=temp
+                        }
+                    }
+                }
+                setSorted(rated)
+                break;
+        }
+    }
     return (
         <main className='w-full flex flex-col items-center justify-start'>
             <div className='w-full flex items-center justify-center py-[24px]'>
@@ -121,7 +188,7 @@ function page() {
                     </div>
                 </Link>
                 <Link className='w-[200px]' href='/Category/beauty-personal-care'>
-                    <div className='h-[223px] bg-center bg-cover bg-[url("/images/cat2.svg")] max-md:w-[90%]'>
+                    <div className='h-[223px] bg-center bg-cover bg-[url("/images/cat2.jpeg")] max-md:w-[90%]'>
                         <div className='w-full h-full flex flex-col items-center justify-center gap-2 hover:hidden'>
                             <h4 className='montserrat-bold w-[120px] text-center text-white text-base xxl:text-[22px]'>Beauty & Personal Care</h4>
                             {/* <h5 className='montserrat-regular text-white text-sm xxl:text-xl'>5 Items</h5> */}
@@ -129,7 +196,7 @@ function page() {
                     </div>
                 </Link>
                 <Link className='w-[200px]' href='/Category/electronics-gadgets'>
-                    <div className='h-[223px] bg-center bg-cover bg-[url("/images/cat3.svg")] max-md:w-[90%]'>
+                    <div className='h-[223px] bg-center bg-cover bg-[url("/images/cat3.jpeg")] max-md:w-[90%]'>
                         <div className='w-full h-full flex flex-col items-center justify-center gap-2 hover:hidden'>
                             <h4 className='montserrat-bold w-[120px] text-center text-white text-base xxl:text-[22px]'>Electronics & Gadgets</h4>
                             {/* <h5 className='montserrat-regular text-white text-sm xxl:text-xl'>5 Items</h5> */}
@@ -137,7 +204,7 @@ function page() {
                     </div>
                 </Link>
                 <Link className='w-[200px]' href='/Category/home-living'>
-                    <div className='h-[223px] bg-center bg-cover bg-[url("/images/cat4.svg")] max-md:w-[90%]'>
+                    <div className='h-[223px] bg-center bg-cover bg-[url("/images/cat4.jfif")] max-md:w-[90%]'>
                         <div className='w-full h-full flex flex-col items-center justify-center gap-2 hover:hidden'>
                             <h4 className='montserrat-bold w-[120px] text-center text-white text-base xxl:text-[22px]'>Home Living</h4>
                             {/* <h5 className='montserrat-regular text-white text-sm xxl:text-xl'>5 Items</h5> */}
@@ -145,7 +212,7 @@ function page() {
                     </div>
                 </Link>
                 <Link className='w-[200px]' href='/Category/sports-automotive'>
-                    <div className='h-[223px] bg-center bg-cover bg-[url("/images/cat5.svg")] max-md:w-[90%]'>
+                    <div className='h-[223px] bg-center bg-cover bg-[url("/images/cat5.jpg")] max-md:w-[90%]'>
                         <div className='w-full h-full flex flex-col items-center justify-center gap-2 hover:hidden'>
                             <h4 className='montserrat-bold w-[120px] text-center text-white text-base xxl:text-[22px]'>Sports & Automotive</h4>
                             {/* <h5 className='montserrat-regular text-white text-sm xxl:text-xl'>5 Items</h5> */}
@@ -157,12 +224,12 @@ function page() {
                 <p className='montserrat-regular text-secondaryCol text-sm xxl:text-xl'>Show all 12 results</p>
                 <div className='flex items-center gap-3'>
                     <p className='montserrat-regular text-secondaryCol text-sm xxl:text-xl'>Views:</p>
-                    <div className='p-[8px] py-[8px] border-secondaryCol border-[1px] rounded-[5px]'>
+                    <button onClick={()=>setDisplay('')} className='p-[8px] py-[8px] border-secondaryCol border-[1px] rounded-[5px]'>
                         <HiSquares2X2 className='text-primaryCol text-xl xxl:text-4xl' />
-                    </div>
-                    <div className='px-[8px] py-[8px] border-secondaryCol border-[1px] rounded-[5px]'>
+                    </button>
+                    <button onClick={()=>setDisplay('inline')} className='px-[8px] py-[8px] border-secondaryCol border-[1px] rounded-[5px]'>
                         <AiOutlineBars className='text-primaryCol text-xl xxl:text-4xl' />
-                    </div>
+                    </button>
 
                 </div>
                 <div className='flex gap-2'>
@@ -173,14 +240,14 @@ function page() {
                         collection={frameworks}
                         width="120px"
                         size={'md'}
-                        value={value}
-                        onValueChange={(e) => setValue(e.value)}
+                        value={sort}
+                        onValueChange={(e) => { setSort(e.value) }}
                         className='bg-white gap-2 border-secondaryCol border-[1px] text-secondaryCol rounded-[5px]'
                     >
                         <SelectTrigger>
                             <SelectValueText placeholder="Sort By:" className='px-4' />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent >
                             {frameworks.items.map((category) => (
                                 <SelectItem item={category} key={category.value} className='bg-white text-secondaryCol rounded-[5px]'>
                                     {category.label}
@@ -189,7 +256,7 @@ function page() {
                         </SelectContent>
                     </SelectRoot>
 
-                    <button className='bg-blueCol text-sm text-white rounded-[5px] py-[10px] px-[20px] hover:bg-[#1e8cca] xxl:text-xl'>Filter</button>
+                    <button onClick={() => productSorting()} className='bg-blueCol text-sm text-white rounded-[5px] py-[10px] px-[20px] hover:bg-[#1e8cca] xxl:text-xl'>Filter</button>
                 </div>
             </div>
             <div className='w-[73%] h-fit'>
@@ -283,7 +350,7 @@ function page() {
 
 
             </div> */}
-            <div className='w-[73%] grid xx:grid-cols-4 gap-x-[30px] place-items-center grid-flow-row max-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'>
+            <div className={` 'w-[73%] grid gap-x-[30px] place-items-center grid-flow-row max-sm:grid-cols-1 ' ${display==='inline'?'sm:grid-cols-1 lg:grid-cols-1 xx:grid-cols-1':'sm:grid-cols-2 lg:grid-cols-3 xx:grid-cols-4'}`}>
                 {paginatedData?.map((product: any) => (
                     <Card
                         id={product.id}
@@ -293,6 +360,7 @@ function page() {
                         price={product.price}
                         discount={product.discountPercentage}
                         rating={product.rating}
+                        display={display}
                     ></Card>
                 ))}
 
@@ -314,7 +382,7 @@ function page() {
                     onPageChange={setCurrentPage}
                 /> */}
             </div>
-            <div className='w-[73%] flex items-center justify-center py-[24px]'>
+            <div className='w-[73%] flex items-center justify-center py-[5rem]'>
                 <PaginationRoot
 
                     page={currentPage}

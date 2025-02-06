@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { FaRegStarHalfStroke, FaStar } from 'react-icons/fa6';
 
-function Card({id, image, title, info, price, discount,rating }: {id:string; image: string; title: string; info: string; price: number | string; discount: number | string ; rating:number;}) {
+function Card({id, image, title, info, price, discount,rating,display }: {id:string; image: string; title: string; info: string; price: number | string; discount: number | string ; rating:number; display:string}) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -26,16 +26,16 @@ function Card({id, image, title, info, price, discount,rating }: {id:string; ima
 
   return (
 
-    <div className='w-[238px] h-[480px] flex flex-col items-center cursor-pointer relative' onClick={handleCardClick} >
+    <div className={` ' items-center cursor-pointer relative ' ${display==='inline'?'w-[73%] flex h-[400px]':'w-[238px] flex-col h-[480px]'} `} onClick={handleCardClick} >
       {isLoading && (
         <div className='absolute inset-0 flex justify-center items-center bg-gray-200 opacity-75 z-10'>
           <div className="animate-spin rounded-full border-t-4 border-blue-500 w-16 h-16"></div>
         </div>
       )}
-      <div className='w-full h-[395px] relative hover:scale-105 duration-500'>
+      <div className={` ' w-full relative hover:scale-105 duration-500 ' ${display==='inline'?'h-[320px] min-w-[400px] max-w-[400px]':'h-[395px]'} `}>
         <Image src={image} alt='product' layout='fill' className='object-contain'></Image>
       </div>
-      <div className='flex flex-col items-start gap-[10px] px-[25px] pb-[35px] pt-[25px]'>
+      <div className={` ' flex flex-col items-start pb-[35px] pt-[25px]' ${display==='inline'?'px-0 gap-[20px]':'px-[25px] gap-[10px]'} `}>
         <h2 className='montserrat-bold text-black text-base line-clamp-1 xxl:text-[22px]'>{title}</h2>
         <p className='montserrat-bold text-secondaryCol text-sm text-left line-clamp-2 xxl:text-xl'>{info}</p>
         <div className='flex items-center gap-[8px]'>

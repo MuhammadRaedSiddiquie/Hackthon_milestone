@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import CheckoutButton from '../components/CheckoutButton/CheckoutButton';
+import { toast } from 'react-toastify';
 
 interface RateProp{
         rateId:string;
@@ -62,9 +63,9 @@ const pakistanCities: Record<string, string> = {
     "Gujranwala": "Punjab",
 };
 
-const Checkout = ({user,order}:{user:any,order:any}) => {
+const Checkout = ({user,order,onSuccess}:{user:any,order:any,onSuccess: () => void;}) => {
+    console.log(order,'order')
 
-    
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -79,6 +80,7 @@ const Checkout = ({user,order}:{user:any,order:any}) => {
     const [rates, setRates] = useState<RateProp[]>([]);
     const [selectedRate, setSelectedRate] = useState('');
     const [cities, setCities] = useState<Record<string, string>>({});
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -100,8 +102,6 @@ const Checkout = ({user,order}:{user:any,order:any}) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
-        console.log("Form Submitted:", formData);
         const shipmentForm = async (formData) => {
             try {
                 const response = await axios.post("/api/shipment", {
@@ -109,12 +109,10 @@ const Checkout = ({user,order}:{user:any,order:any}) => {
                     userId: "USER_ID", // Replace with actual user ID
                     orderId: "ORDER_ID", // Replace with actual order ID
                 });
-
-                console.log("Shipment saved:", response.data);
-                alert("Shipment saved successfully!");
+    
             } catch (error) {
                 console.error("Error saving shipment:", error);
-                alert("Failed to save shipment. Please try again.");
+                toast.error("Failed to save shipment. Please try again.");
             }
         }
         shipmentForm(formData);
@@ -138,17 +136,12 @@ const Checkout = ({user,order}:{user:any,order:any}) => {
                 ],
             });
 
-            setRates(response.data.rates);
-            console.log(response.data, 'fetched rates');
-            
+            setRates(response.data.rates);      
         } catch (error) {
             console.error("Error fetching rates:", error);
+            toast.error("Failed to fetch rates. Please check your details and try again.");
         }
     }
-    useEffect(()=>{
-        const userId=user;
-    },[user])
-
     const createLabel = async (rateId) => {
         try {
             const response = await axios.post("/api/shipment/create-label", {
@@ -169,15 +162,13 @@ const Checkout = ({user,order}:{user:any,order:any}) => {
             });
 
             console.log("Label created:", response.data);
-            alert("Label created successfully!");
+            toast.success("Label created successfully!");
         } catch (error) {
             console.error("Error creating label:", error);
-            alert("Failed to create label. Please try again.");
+            toast.error("Failed to create label. Please try again.");
         }
     }
-    const [loading, setLoading] = useState(false);
-
-    
+   
 
     return (
         <section className="bg-white antialiased dark:bg-gray-900 ">
@@ -375,7 +366,7 @@ const Checkout = ({user,order}:{user:any,order:any}) => {
                                         <div key={index} className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
                                             <div className="flex items-start">
                                                 <div className="flex h-5 items-center">
-                                                    <input id={`rate-${index}`} aria-describedby={`rate-${index}-text`} type="radio" name="shipping-rate" value={rate.rateId} onChange={() => setSelectedRate(rate.rateId)} className="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600" />
+                                                    <input id={`rate-${index}`} aria-describedby={`rate-${index}-text`} type="radio" name="shipping-rate" value={rate.rateId} onChange={() => setSelectedRate(rate.rateId)} className="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600" required />
                                                 </div>
 
                                                 <div className="ms-4 text-sm">
@@ -387,15 +378,22 @@ const Checkout = ({user,order}:{user:any,order:any}) => {
                                     ))}
                                 </div>
                             ) : (
-                                ''
-                            )}
+                                <div className="space-y-3">
+                            <button type="button" onClick={fetchRates} className="flex w-full items-center justify-center rounded-lg bg-blueCol px-5 py-2.5 text-sm montserrat-bold text-white hover:bg-blueHov disabled:bg-blue-300" disabled={!formData.name || !formData.phone || !formData.address || !formData.city || !formData.postal}>Fetch Rates</button>
+                            {/* <button type="button" onClick={() => createLabel(selectedRate)} className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-black hover:bg-primary-800 focus:outline-none focus:ring-4  focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create Label</button>
+                            <button type="submit" className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-black hover:bg-primary-800 focus:outline-none focus:ring-4  focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Proceed to Payment</button> */}
                         </div>
-
-                        <div className="space-y-3">
-                            <button type="button" onClick={fetchRates} className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-black hover:bg-primary-800 focus:outline-none focus:ring-4  focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Fetch Rates</button>
-                            <button type="button" onClick={() => createLabel(selectedRate)} className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-black hover:bg-primary-800 focus:outline-none focus:ring-4  focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create Label</button>
-                            <button type="submit" className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-black hover:bg-primary-800 focus:outline-none focus:ring-4  focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Proceed to Payment</button>
-                            <CheckoutButton product={order} user={user} formData={formData}></CheckoutButton>
+                            )}
+                            <div className='w-full flex items-center justify-end py-10'>
+                            <CheckoutButton
+                                product={order}
+                                user={user}
+                                formData={formData}
+                                selectedRate={selectedRate}
+                                rates={rates}
+                                onSuccess={onSuccess}
+                            />
+                            </div>
                         </div>
                     </div>
                 </div>

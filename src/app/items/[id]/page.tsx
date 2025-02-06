@@ -125,7 +125,7 @@ export default function ProductDetails() {
         price: number,
         image: string
     ) => {
-        console.log(userId,productId,price,image)
+        
         const newItem = {
             _key: Math.random().toString(36).substring(7), // Generate a unique key
             product: {

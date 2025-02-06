@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+
 import { sanityClient } from '@/lib/sanity.client';
 import { NextRequest, NextResponse } from 'next/server';
 

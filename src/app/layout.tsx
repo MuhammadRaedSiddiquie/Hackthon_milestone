@@ -3,6 +3,8 @@ import { Provider } from "@/components/ui/provider"
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import localFont from "next/font/local";
 import "./globals.css";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 
@@ -40,6 +42,18 @@ export default function RootLayout({
             {children}
             <Footer></Footer>
           </Provider>
+          <ToastContainer
+            position="bottom-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
         </body>
       </UserProvider>
     </html>

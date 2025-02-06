@@ -12,6 +12,7 @@ export interface StepsItemProps
     StepInfoProps {
   completedIcon?: React.ReactNode
   icon?: React.ReactNode
+  
 }
 
 export const StepsItem = React.forwardRef<HTMLDivElement, StepsItemProps>(
@@ -48,7 +49,7 @@ const StepInfo = (props: StepInfoProps) => {
 
   return (
     <>
-      {title && <ChakraSteps.Title>{title}</ChakraSteps.Title>}
+      {title && <ChakraSteps.Title className="text-lg montserrat-medium text-primaryCol">{title}</ChakraSteps.Title>}
       {description && (
         <ChakraSteps.Description>{description}</ChakraSteps.Description>
       )}

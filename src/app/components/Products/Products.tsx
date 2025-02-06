@@ -30,20 +30,20 @@ interface Product {
 function Products({
     query,
     params = {},
+    view,
   }: {
     query: string;
     params?: Record<string, any>;
+    view:string;
   }) {
-    console.log(query,"query recieved in products")
-    console.log(params,"params recieved in products")
     const [data, setData] = useState < Product[] > ([]);
-    const [page,setPage]=useState({num1:1,num2:9})
+    const [style,setStyle]= useState('')
+   
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await client.fetch < Product[] > (query,{params});
                 setData(response);
-                console.log('data fetched successfully',response,"rspse")
               
 
             } catch (error) {
@@ -55,8 +55,14 @@ function Products({
         fetchData();
         console.log('fetched data products:',data)
 
-    }, [query]); // Empty dependency array ensures it runs only once
-
+    }, [query,params]); // Empty dependency array ensures it runs only once
+useEffect(()=>{
+if(view==='inline'){
+    setStyle(view)
+    console.log('view change to inline')
+}
+console.log(view)
+},[view])
 
 
 
@@ -81,6 +87,7 @@ function Products({
                             price={product.price}
                             discount={product.discountPercentage}
                             rating={product.rating}
+                            display={style==='inline'?'inline':''}
                         ></Card>
                     ))}
 
