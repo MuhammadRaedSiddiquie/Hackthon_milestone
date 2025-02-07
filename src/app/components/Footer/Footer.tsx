@@ -51,7 +51,6 @@ function Footer() {
             </div>
             <p className='text-[12px] text-secondaryCol montserrat-bold xxl:text-lg'>Unlimited Support</p>
           </ul>
-
         </div>
         <div className='w-full flex items-center justify-start py-[25px]'>
           <p className='montserrat-bold text-secondaryCol text-sm text-center xxl:text-xl'>Made With Love By Finland All Right Reserved </p>

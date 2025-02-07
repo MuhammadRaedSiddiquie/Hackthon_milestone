@@ -1,16 +1,16 @@
 'use client'
 import React, { useEffect } from 'react'
 import { IoIosArrowForward } from "react-icons/io";
-import Card3 from '../components/Card3/Card3';
+
 import Logos from '../components/Logos/Logos';
 import { AiOutlineBars } from "react-icons/ai";
 import { HiSquares2X2 } from "react-icons/hi2";
-import { RiArrowDownWideLine } from "react-icons/ri";
-import { Box, Button, createListCollection, Group } from "@chakra-ui/react"
+
+import { Box, Button, createListCollection } from "@chakra-ui/react"
 import {
     SelectContent,
     SelectItem,
-    SelectLabel,
+   
     SelectRoot,
     SelectTrigger,
     SelectValueText,
@@ -21,18 +21,30 @@ import Card from '../components/Card/Card';
 import { client } from '@/sanity/lib/client';
 import { HStack } from "@chakra-ui/react"
 import {
-    PaginationItems,
+ 
     PaginationNextTrigger,
     PaginationPrevTrigger,
     PaginationRoot,
 } from "@/components/ui/pagination"
-import { ConfigResolutionError } from 'sanity';
+interface Product {
+    id: string;
+    title: string;
+    description: string;
+    images: { _key: string; asset: { url: string } }[];
+    category: string;
+    price: number;
+    discountPercentage: number;
+    rating: number;
+    tags: string[];
+    stock: number;
+    brand: string;
+    availabilityStatus: string;
+  }
 
-
-function page() {
-    const [value, setValue] = useState<string[]>([])
+function ProductPage() {
+    // const [value, setValue] = useState<string[]>([])
     const [data, setData] = useState([]);
-    const [sort, setSort] = useState('')
+    const [sort, setSort] = useState<string>('no')
     const frameworks = createListCollection({
         items: [
             { label: "No Filter", value: "no" },
@@ -63,6 +75,7 @@ function page() {
         const fetchData = async () => {
             try {
                 const response = await client.fetch(query);
+             
                 setData(response);
                 
                 
@@ -76,7 +89,7 @@ function page() {
         console.log('fetched data products:', data)
         
     }, [])
-    const [sorted, setSorted] = useState(data);
+    const [sorted, setSorted] = useState<Product[]>(data);
     useEffect(()=>{
         setSorted(data)
     },[data])
@@ -86,86 +99,51 @@ function page() {
     const totalPages = Math.ceil(data.length / ProductsPerPage)
     const paginatedData = sorted.slice((currentPage - 1) * ProductsPerPage, currentPage * ProductsPerPage)
     
-    const CustomPagination = ({ currentPage, totalPages, onPageChange }) => {
-        return (
-            <div className="flex items-center gap-2">
-                <button
-                    onClick={() => onPageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className="p-2 bg-gray-200 rounded"
-                >
-                    Previous
-                </button>
-                <span>{currentPage} of {totalPages}</span>
-                <button
-                    onClick={() => onPageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                    className="p-2 bg-gray-200 rounded"
-                    >
-                    Next
-                </button>
-            </div>
-        );
-    };
     const productSorting = () => {
-        switch (sort[0]) {
-            case 'no':
-                setSorted(data)
-                break;
-            case 'low':
-                let lowPrice=[...data]
-                for(let i=0;i<=data.length-2;i++){
-                    for(let j=0;j<=data.length-2;j++){
-                        if(lowPrice[j].price > lowPrice[j+1].price){
-                            let temp=lowPrice[j]
-                            lowPrice[j]=lowPrice[j+1]
-                            lowPrice[j+1]=temp
-                        }
-                    }
-                }
-                setSorted(lowPrice)
-                break;
-            case 'high':
-                let highPrice=[...data]
-                for(let i=0;i<=data.length-2;i++){
-                    for(let j=0;j<=data.length-2;j++){
-                        if(highPrice[j].price < highPrice[j+1].price){
-                            let temp=highPrice[j]
-                            highPrice[j]=highPrice[j+1]
-                            highPrice[j+1]=temp
-                        }
-                    }
-                }
-                setSorted(highPrice)
-                break;
-            case 'discount':
-                let discounted=[...data]
-                for(let i=0;i<=data.length-2;i++){
-                    for(let j=0;j<=data.length-2;j++){
-                        if(discounted[j].discountPercentage < discounted[j+1].discountPercentage){
-                            let temp=discounted[j]
-                            discounted[j]=discounted[j+1]
-                            discounted[j+1]=temp
-                        }
-                    }
-                }
-                setSorted(discounted)
-                break;
-            case 'rated':
-                let rated=[...data]
-                for(let i=0;i<=data.length-2;i++){
-                    for(let j=0;j<=data.length-2;j++){
-                        if(rated[j].rating < rated[j+1].rating){
-                            let temp=rated[j]
-                            rated[j]=rated[j+1]
-                            rated[j+1]=temp
-                        }
-                    }
-                }
-                setSorted(rated)
-                break;
+        let sortedData: Product[] = [...data]; // ✅ Create a new array to maintain immutability
+      
+        switch (sort) { // ✅ `sort` is a string, not an array
+          case "low":
+            sortedData.sort((a, b) => a.price - b.price);
+            break;
+          case "high":
+            sortedData.sort((a, b) => b.price - a.price);
+            break;
+          case "discount":
+            sortedData.sort((a, b) => b.discountPercentage - a.discountPercentage);
+            break;
+          case "rated":
+            sortedData.sort((a, b) => b.rating - a.rating);
+            break;
+          default:
+            break;
         }
-    }
+      
+        setSorted(sortedData);
+      };
+      
+    
+    // const CustomPagination = ({ currentPage, totalPages, onPageChange }) => {
+    //     return (
+    //         <div className="flex items-center gap-2">
+    //             <button
+    //                 onClick={() => onPageChange(currentPage - 1)}
+    //                 disabled={currentPage === 1}
+    //                 className="p-2 bg-gray-200 rounded"
+    //             >
+    //                 Previous
+    //             </button>
+    //             <span>{currentPage} of {totalPages}</span>
+    //             <button
+    //                 onClick={() => onPageChange(currentPage + 1)}
+    //                 disabled={currentPage === totalPages}
+    //                 className="p-2 bg-gray-200 rounded"
+    //                 >
+    //                 Next
+    //             </button>
+    //         </div>
+    //     );
+    // };
     return (
         <main className='w-full flex flex-col items-center justify-start'>
             <div className='w-full flex items-center justify-center py-[24px]'>
@@ -240,8 +218,8 @@ function page() {
                         collection={frameworks}
                         width="120px"
                         size={'md'}
-                        value={sort}
-                        onValueChange={(e) => { setSort(e.value) }}
+                        // value={sort}
+                        // onValueChange={(e) => { setSort(e.value) }}
                         className='bg-white gap-2 border-secondaryCol border-[1px] text-secondaryCol rounded-[5px]'
                     >
                         <SelectTrigger>
@@ -353,6 +331,7 @@ function page() {
             <div className={` 'w-[73%] grid gap-x-[30px] place-items-center grid-flow-row max-sm:grid-cols-1 ' ${display==='inline'?'sm:grid-cols-1 lg:grid-cols-1 xx:grid-cols-1':'sm:grid-cols-2 lg:grid-cols-3 xx:grid-cols-4'}`}>
                 {paginatedData?.map((product: any) => (
                     <Card
+                    key={product.id}
                         id={product.id}
                         image={product.images?.[0]?.asset?.url || product.image}
                         title={product.title}
@@ -423,4 +402,4 @@ function page() {
     )
 }
 
-export default page
+export default ProductPage

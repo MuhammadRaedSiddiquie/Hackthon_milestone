@@ -36,7 +36,7 @@ export async function DELETE(req: NextRequest) {
         }
 
         // Check if the product exists in the cart
-        const wishlistExists = wishlist.products?.some(item => item.productId === productId);
+        const wishlistExists = wishlist.products?.some((item:any) => item.productId === productId);
         if (!wishlistExists) {
             return NextResponse.json(
                 { error: 'Product not found in the wishlist.' },
@@ -55,7 +55,7 @@ export async function DELETE(req: NextRequest) {
             { status: 200 }
         );
     } catch (error) {
-        console.error('Error in remove-wishlist API:', error.message);
+        console.error('Error in remove-wishlist API:', (error as Error).message);
         return NextResponse.json(
             { error: 'Server error occurred.' },
             { status: 500 }

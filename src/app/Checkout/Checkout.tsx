@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import CheckoutButton from '../components/CheckoutButton/CheckoutButton';
 import { toast } from 'react-toastify';
@@ -79,17 +79,16 @@ const Checkout = ({user,order,onSuccess}:{user:any,order:any,onSuccess: () => vo
 
     const [rates, setRates] = useState<RateProp[]>([]);
     const [selectedRate, setSelectedRate] = useState('');
-    const [cities, setCities] = useState<Record<string, string>>({});
-    const [loading, setLoading] = useState(false);
+    // const [cities, setCities] = useState<Record<string, string>>({});
+    // const [loading, setLoading] = useState(false);
 
-    const handleChange = (e) => {
+    const handleChange = (e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         if (name === "city") {
-            // Update the city and state based on the selected city
             setFormData((prevData) => ({
                 ...prevData,
-                city: value, // Full city name (e.g., "Karachi")
-                state: pakistanCities[value], // State code (e.g., "Sindh")
+                city: value, 
+                state: pakistanCities[value],
             }));
         } else {
             setFormData((prevData) => ({
@@ -102,13 +101,14 @@ const Checkout = ({user,order,onSuccess}:{user:any,order:any,onSuccess: () => vo
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const shipmentForm = async (formData) => {
+        const shipmentForm = async (formData: Record<string, any>) => {
             try {
                 const response = await axios.post("/api/shipment", {
                     ...formData,
                     userId: "USER_ID", // Replace with actual user ID
                     orderId: "ORDER_ID", // Replace with actual order ID
                 });
+                console.log(response)
     
             } catch (error) {
                 console.error("Error saving shipment:", error);
@@ -142,32 +142,32 @@ const Checkout = ({user,order,onSuccess}:{user:any,order:any,onSuccess: () => vo
             toast.error("Failed to fetch rates. Please check your details and try again.");
         }
     }
-    const createLabel = async (rateId) => {
-        try {
-            const response = await axios.post("/api/shipment/create-label", {
-                rateId: rateId,
-                shipmentDetails: {
-                    name: formData.name,
-                    phone: formData.phone,
-                    addressLine1: formData.address,
-                    cityLocality: formData.city,
-                    stateProvince: formData.city, // Assuming city and state are the same for simplicity
-                    postalCode: formData.postal,
-                    countryCode: formData.country,
-                    addressResidentialIndicator: "no",
-                },
-                packages: [
-                    { weight: { value: 5, unit: "ounce" }, dimensions: { height: 3, width: 15, length: 10, unit: "inch" } },
-                ],
-            });
+    // const createLabel = async (rateId) => {
+    //     try {
+    //         const response = await axios.post("/api/shipment/create-label", {
+    //             rateId: rateId,
+    //             shipmentDetails: {
+    //                 name: formData.name,
+    //                 phone: formData.phone,
+    //                 addressLine1: formData.address,
+    //                 cityLocality: formData.city,
+    //                 stateProvince: formData.city, // Assuming city and state are the same for simplicity
+    //                 postalCode: formData.postal,
+    //                 countryCode: formData.country,
+    //                 addressResidentialIndicator: "no",
+    //             },
+    //             packages: [
+    //                 { weight: { value: 5, unit: "ounce" }, dimensions: { height: 3, width: 15, length: 10, unit: "inch" } },
+    //             ],
+    //         });
 
-            console.log("Label created:", response.data);
-            toast.success("Label created successfully!");
-        } catch (error) {
-            console.error("Error creating label:", error);
-            toast.error("Failed to create label. Please try again.");
-        }
-    }
+    //         console.log("Label created:", response.data);
+    //         toast.success("Label created successfully!");
+    //     } catch (error) {
+    //         console.error("Error creating label:", error);
+    //         toast.error("Failed to create label. Please try again.");
+    //     }
+    // }
    
 
     return (

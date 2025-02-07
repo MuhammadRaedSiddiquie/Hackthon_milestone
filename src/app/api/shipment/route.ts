@@ -1,15 +1,12 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 
-// Mock database (replace with your actual database logic)
+// Mock database (replace with actual database logic)
 const shipments: any[] = [];
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== 'POST') {
-        return res.status(405).json({ message: 'Method Not Allowed' });
-    }
-
+export async function POST(req: NextRequest) {
     try {
-        const { userId, orderId, ...shipmentDetails } = req.body;
+        const body = await req.json(); // Parse request body
+        const { userId, orderId, ...shipmentDetails } = body;
 
         // Save shipment details to the database
         const shipment = {
@@ -21,9 +18,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         };
         shipments.push(shipment);
 
-        res.status(200).json({ message: 'Shipment saved successfully', shipment });
-    } catch (error) {
+        return NextResponse.json({ message: 'Shipment saved successfully', shipment });
+    } catch (error: any) {
         console.error('Error saving shipment:', error);
-        res.status(500).json({ message: 'Failed to save shipment', error: error.message });
+        return NextResponse.json(
+            { message: 'Failed to save shipment', error: error.message },
+            { status: 500 }
+        );
     }
 }

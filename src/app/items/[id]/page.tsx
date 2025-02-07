@@ -1,10 +1,10 @@
 'use client'
-// app/product/[id]/page.tsx
+
 import axios from 'axios'
 import { useParams } from 'next/navigation';
 import { IoIosArrowForward } from 'react-icons/io';
 import { FaEye } from 'react-icons/fa';
-import { CiHeart, CiShoppingCart } from 'react-icons/ci'
+import { CiShoppingCart } from 'react-icons/ci'
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
 import Image from 'next/image';
@@ -14,13 +14,8 @@ import Products from '@/app/components/Products/Products';
 import { useEffect, useState } from 'react';
 import { fetchData } from '@/lib/fetchData';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import { UserColorManagerProvider } from 'sanity';
 import useCartStore from '@/app/stores/useCartStore';
-import { nanoid } from 'nanoid';
 import { toast } from 'react-toastify';
-
-
-
 
 export default function ProductDetails() {
     const params = useParams();
@@ -30,7 +25,6 @@ export default function ProductDetails() {
     const [selectedCol, setColor] = useState('#23A6F0');
     const { user } = useUser();
     const userId = user?.sub;
-
 
     const query = `*[_type == "product"]{
         id,
@@ -51,17 +45,12 @@ export default function ProductDetails() {
       }`;
     useEffect(() => {
         const id = params?.id;
-
         setLoading(true)
         if (id) {
-
             const fetchProduct = async () => {
                 const dataQuery = `*[_type == "product" && id == $id]{_id,id,title,description,images[]{_key,asset->{url} },category,price,discountPercentage,rating,tags[],stock,brand,availabilityStatus}`;
                 const data = await fetchData(dataQuery, { id })
-                console.log(data,'item fetched')
                 setProduct(data[0])
-                setLoading(false)
-
             }
             fetchProduct();
         }
@@ -69,14 +58,6 @@ export default function ProductDetails() {
             setLoading(false);
         }
     }, [params.id])
-
-    useEffect(() => {
-        if (userId && product) {
-
-            checkWishlist();
-            console.log('wishlist checked', isInWishlist)
-        }
-    }, [userId, product]);
 
     const checkWishlist = async () => {
         const { id } = product;
@@ -87,77 +68,56 @@ export default function ProductDetails() {
                     productId: id,
                 },
             });
-
             setIsInWishlist(response.data.isInWishlist);
         } catch (error) {
             console.error('Error checking wishlist:', error);
         }
     };
 
+    useEffect(() => {
+        if (userId && product) {
+            checkWishlist();
+        }
+    }, [userId, product,checkWishlist]);
 
-
-    // async function addToCart(userId, product) {
-    //     const { image, id, price } = product;
-
-    //     try {
-    //         const response = await axios.post('/api/add-to-cart', {
-    //             userId,
-    //             productId: id,
-    //             quantity: 1,
-    //             price,
-    //             image,
-    //         });
-
-    //         if (response.data.success) {
-    //             alert('Product added to cart successfully!');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error adding to cart:', error);
-    //         alert('Failed to add product to cart.');
-    //     }
-    // }
-
+    
 
     const addToCart = async (
         userId: any,
-        title:string,
+        title: string,
         productId: any,
         price: number,
         image: string
     ) => {
-        
         const newItem = {
-            _key: Math.random().toString(36).substring(7), // Generate a unique key
+            _key: Math.random().toString(36).substring(7),
             product: {
                 _id: productId,
-                title, // Replace with actual product data
+                title,
                 price,
                 images: [{ asset: { url: image } }],
             },
-            quantity:1,
+            quantity: 1,
         };
-
-        // Optimistically update local state
         useCartStore.getState().addItem(newItem);
-
         try {
             const response = await fetch('/api/cart', {
                 method: 'POST',
                 headers: {
-                  'Content-Type': 'application/json',
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                  userId,
-                  title,
-                  productId,
-                  quantity:1,
-                  price,
-                  image,
+                    userId,
+                    title,
+                    productId,
+                    quantity: 1,
+                    price,
+                    image,
                 }),
-              });
-              
-              const data = await response.json();
-              console.log(data,"add to cart");
+            });
+
+            const data = await response.json();
+            console.log(data, "add to cart");
 
             if (response.status === 200) {
                 toast.success('Product added to cart!');
@@ -173,7 +133,7 @@ export default function ProductDetails() {
         }
     };
 
-    async function addToWishlist(userId, product) {
+    async function addToWishlist(userId:any, product:any) {
         const { images, id, price, title, description, discountPercentage, rating } = product;
         const image = images[0]?.asset?.url;
         try {
@@ -196,7 +156,7 @@ export default function ProductDetails() {
             alert('Failed to add product to cart.');
         }
     }
-    async function removeFromWishlist(userId, product) {
+    async function removeFromWishlist(userId:any, product:any) {
 
         const { id } = product;
 
@@ -255,7 +215,6 @@ export default function ProductDetails() {
                         Excitation venial consequent sent nostrum met.</p>
                     <hr className='bg-[#f3f3f3] h-[2px] w-[90%] my-6' />
                     <div className='flex items-start gap-[6px]'>
-
                         {
                             ['#23A6F0', '#23856D', '#E77C40', '#252B42'].map((col, index) => (
                                 <span style={{ backgroundColor: `${col}` }} key={index} className={` ' w-[25px] h-[25px] rounded-[50%] outline-[2px] outline-none ' ${col === selectedCol ? 'outline-[#c1c1c1]' : ''} `} onClick={() => { setColor(col) }} aria-label={`Color option ${col}`} role='Button'></span>
@@ -263,9 +222,7 @@ export default function ProductDetails() {
                         }
                     </div>
                     <div className='flex gap-[10px] items-center justify-start mt-10'>
-
-                        <button onClick={() => addToCart(userId,product.title, product._id,product.price,product.images?.[0]?.asset?.url)} className='bg-blueCol text-sm text-white montserrat-bold rounded-[5px] py-[10px] px-[20px] hover:bg-blueHov xxl:text-xl'>
-                            Select Options</button>
+                        <button onClick={() => addToCart(userId, product.title, product._id, product.price, product.images?.[0]?.asset?.url)} className='bg-blueCol text-sm text-white montserrat-bold rounded-[5px] py-[10px] px-[20px] hover:bg-blueHov xxl:text-xl'>Select Options</button>
                         <button onClick={() => {
                             isInWishlist ? removeFromWishlist(userId, product) : addToWishlist(userId, product);
                         }} className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol hover:bg-[#e3e3e3]'>
@@ -276,8 +233,6 @@ export default function ProductDetails() {
                         <div className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol hover:bg-[#e3e3e3]'><FaEye /></div>
                     </div>
                 </div>
-
-
             </div> : 'no products available'}
             <div className='w-[73%] flex flex-col items-start gap-[24px] pt-[100px] px-[20px] max-lg:items-center max-lg:w-[90%]'>
                 <h2 className='montserrat-bold text-primaryCol text-[40px] max-md:text-[24px]'>Customer Reviews :</h2>
@@ -339,7 +294,8 @@ export default function ProductDetails() {
                 </div>
             </div>
             <Products
-                query={query}></Products>
+                query={query} view=''>
+            </Products>
             <div className='w-[73%] max-lg:hidden'>
                 <Logos></Logos>
             </div>

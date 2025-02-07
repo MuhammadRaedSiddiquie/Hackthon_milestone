@@ -12,6 +12,7 @@ interface ProductProps {
     image: string;
     info:string;
     discount:string;
+    rating:number;
     color:string;
     isLiked:boolean;
     quantity: number;
@@ -36,12 +37,16 @@ const LikePage = () => {
                 <div className='w-full grid xx:grid-cols-4 gap-x-[30px] place-items-center grid-flow-row max-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'>
                    {
                     cartItem.map((item:ProductProps)=>(
-                        <Card key={item.id}
+                        <Card 
+                        key={item.id}
+                        id={item.id}
                         image={item.image}
                         title={item.title}
                         price={item.price}
                         info={item.info}
                         discount={item.discount}
+                        rating={item.rating}
+                        display=''
                         >
                         </Card>
                     ))

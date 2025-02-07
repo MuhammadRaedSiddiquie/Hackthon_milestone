@@ -2,10 +2,9 @@
 import { sanityClient } from '@/lib/sanity.client';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function DELETE(req: NextRequest, res: NextResponse) {
+export async function DELETE(req: NextRequest) {
   try{
     const { userId } = await req.json();
-    console.log(userId,'iddddd')
 
     // Fetch existing cart
     const existingCart = await sanityClient.fetch(

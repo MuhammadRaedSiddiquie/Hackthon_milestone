@@ -32,6 +32,7 @@ export default function Home() {
       <Pick></Pick>
       <Products
       query={query}
+      view=""
       ></Products>
       <Carousel2></Carousel2>
       <Summer></Summer>

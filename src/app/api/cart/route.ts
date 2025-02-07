@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     if (existingCart) {
       // Check if the product already exists in the cart
       const existingItemIndex = existingCart.items.findIndex(
-        (item) => item.product._ref === productId
+        (item:any) => item.product._ref === productId
       );
 
       if (existingItemIndex !== -1) {
@@ -81,7 +81,7 @@ export async function DELETE(request: Request) {
     if (existingCart) {
       // Remove the item from the cart
       const updatedItems = existingCart.items.filter(
-        (item) => item.product._ref !== productId
+        (item:any) => item.product._ref !== productId
       );
 
       // Update cart in Sanity

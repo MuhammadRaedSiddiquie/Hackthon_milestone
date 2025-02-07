@@ -19,7 +19,7 @@ export async function GET(request: Request) {
 
     try {
         // Retrieve Stripe session
-        const session = await stripe.checkout.sessions.retrieve(sessionId);
+        // const session = await stripe.checkout.sessions.retrieve(sessionId);
 
         // Fetch order details from Sanity
         const order = await sanityClient.fetch(

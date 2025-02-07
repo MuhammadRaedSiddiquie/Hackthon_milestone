@@ -37,9 +37,9 @@ export async function POST(req: Request) {
     if (existingCart) {
       // Check if the product already exists in the cart
       const existingItemIndex = existingCart.items.findIndex(
-        (item) => item.product._ref === product._id
+        (item:any) => item.product._ref === product._id
       );
-      console.log(existingItemIndex,'index')
+     
 
       if (existingItemIndex !== -1) {
         // Product exists in the cart, update its quantity
@@ -92,7 +92,7 @@ export async function POST(req: Request) {
       return NextResponse.json(result, { status: 201 });
     }
   } catch (error) {
-    console.error('Error in add-to-cart API:', error.message);
+    console.error('Error in add-to-cart API:',  (error as Error).message);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

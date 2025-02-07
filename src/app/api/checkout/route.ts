@@ -1,5 +1,4 @@
 import { sanityClient } from "@/lib/sanity.client";
-import axios from "axios";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -91,6 +90,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ url: session.url });
   } catch (error) {
     console.error("Stripe Checkout Error:", error);
-    return NextResponse.json({ error: "Internal Server Error", details: error.message }, { status: 500 });
+    return NextResponse.json({ error: "Internal Server Error", details: (error as Error).message }, { status: 500 });
   }
 }

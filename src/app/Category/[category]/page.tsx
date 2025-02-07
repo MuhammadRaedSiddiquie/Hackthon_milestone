@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react'
 const CategoryPage = () => {
   const params = useParams();
   const productCategory = params?.category
-  const categoryMappings = {
+  const categoryMappings: Record<string, string[]> = {
     "fashion-accessories": [
       "mens-shirts", "mens-shoes", "mens-watches", "sunglasses",
       "womens-bags", "womens-dresses", "womens-jewellery",
@@ -20,17 +20,16 @@ const CategoryPage = () => {
     "sports-automotive": ["motorcycle", "sports-accessories", "vehicle"],
   };
   const [categoryQuery, setCategoryQuery] = useState('')
-  const userId = 'google-oauth2|102988815370920618477'
+  // const userId = 'google-oauth2|102988815370920618477'
 
 
   useEffect(() => {
-    if (productCategory && categoryMappings[productCategory]) {
-      setCategoryQuery(productCategory); // Set categoryQuery dynamically
+    const category = Array.isArray(productCategory) ? productCategory[0] : productCategory;
+    if (typeof category === "string" && categoryMappings[category]) {
+      setCategoryQuery(category); // Set categoryQuery dynamically
     }
-  }, [productCategory]);
-  useEffect(()=>{
-    console.log(categoryMappings[categoryQuery],'result')
-  },[categoryQuery])
+  }, [productCategory,categoryMappings]);
+  
 
   const selectedCategories = categoryMappings[categoryQuery] || [];
 
@@ -53,8 +52,8 @@ const CategoryPage = () => {
     availabilityStatus
   }`;
 
-  const [loading, setLoading] = useState(false)
-  const [product, setProduct] = useState<any>(null)
+  // const [loading, setLoading] = useState(false)
+  // const [product, setProduct] = useState<any>(null)
   //   useEffect(() => {
   //       setLoading(true)
   //       const userId = 'google-oauth2|102988815370920618477';
@@ -80,6 +79,7 @@ const CategoryPage = () => {
         <Products
         query={dataQuery}
         params={selectedCategories}
+        view=''
       ></Products>
       :'no products found'}
     </section>

@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+// import React, { useState } from 'react'
 import Products from '../components/Products/Products'
 
 
@@ -16,10 +16,9 @@ const WishlistPage = () => {
     description,
     image
   }
-`;
-
-    const [loading, setLoading] = useState(false)
-    const [product, setProduct] = useState < any > (null)
+// `;
+//     const [loading, setLoading] = useState(false)
+//     const [product, setProduct] = useState < any > (null)
     //   useEffect(() => {
     //       setLoading(true)
     //       const userId = 'google-oauth2|102988815370920618477';
@@ -40,10 +39,11 @@ const WishlistPage = () => {
     //     }
     // }, [query])
     return (
-        <section className='w-full h-screen flex items-start justify-center'>
+        <section className='w-full flex items-start justify-center'>
             <Products
                 query={dataQuery}
-                params={userId}
+                params={{userId}}
+                view=''
             ></Products>
         </section>
     )

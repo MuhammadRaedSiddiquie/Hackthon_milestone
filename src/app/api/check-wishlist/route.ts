@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
 
         // Check if the product exists in the wishlist
         //const isInWishlist = wishlist.products?.some(item => item.productId === productId);
-        const isInWishlist = wishlist.products?.some((item) => {
+        const isInWishlist = wishlist.products?.some((item:any) => {
          
             return item.id === productId;
         });
@@ -41,7 +41,7 @@ export async function GET(req: NextRequest) {
 
         // Respond with the wishlist status
         return NextResponse.json({ isInWishlist }, { status: 200 });
-    } catch (error) {
+    } catch{
 
         return NextResponse.json(
             { error: 'Server error occurred.' },

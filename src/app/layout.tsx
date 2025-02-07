@@ -53,6 +53,7 @@ export default function RootLayout({
             draggable
             pauseOnHover
             theme="colored"
+            aria-label="Notification container"
           />
         </body>
       </UserProvider>

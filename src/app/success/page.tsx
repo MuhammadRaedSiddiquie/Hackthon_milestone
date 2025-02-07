@@ -1,12 +1,13 @@
 'use client';
+
 import axios from "axios";
 import { toast } from "react-toastify";
 import useCartStore from "../stores/useCartStore";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function Success() {
+function SuccessContent() {
   const { user } = useUser();
   const userId = user?.sub;
   const router = useRouter();
@@ -15,12 +16,8 @@ export default function Success() {
 
   const clearCarts = async (userId: string | undefined) => {
     useCartStore.getState().clearCart();
-
     try {
-      const response = await axios.delete('/api/cart/clear', {
-        data: { userId },
-      });
-
+      const response = await axios.delete('/api/cart/clear', { data: { userId } });
       if (response.status === 200) {
         toast.success("Cart cleared successfully!");
       }
@@ -36,7 +33,6 @@ export default function Success() {
       const timer = setTimeout(() => {
         router.push(`/Order?session_id=${sessionId}`);
       }, 3000);
-
       return () => clearTimeout(timer);
     }
   }, [sessionId, router]);
@@ -53,5 +49,13 @@ export default function Success() {
       <p>Thank you for your purchase.</p>
       <p>Please wait while redirecting ... </p>
     </div>
+  );
+}
+
+export default function Success() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
+      <SuccessContent />
+    </Suspense>
   );
 }

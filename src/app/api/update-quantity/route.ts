@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Find the item to update
-    const itemIndex = cart.items.findIndex((item) => item.product._ref === productId);
+    const itemIndex = cart.items.findIndex((item:any) => item.product._ref === productId);
     if (itemIndex === -1) {
       return NextResponse.json({ error: 'Product not found in cart' }, { status: 404 });
     }

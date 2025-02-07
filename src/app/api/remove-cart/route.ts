@@ -35,7 +35,7 @@ export async function DELETE(req: NextRequest) {
 
     // Find the index of the item to remove
     const itemIndex = cart.items.findIndex(
-      (item) => item.product._ref === productId
+      (item:any) => item.product._ref === productId
     );
 
     if (itemIndex === -1) {
@@ -56,7 +56,7 @@ export async function DELETE(req: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('Error in remove-cart API:', error.message);
+    console.error('Error in remove-cart API:', (error as Error).message);
     return NextResponse.json(
       { error: 'Server error occurred.' },
       { status: 500 }

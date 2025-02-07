@@ -1,28 +1,20 @@
 'use client'
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
-import { useUser } from '@auth0/nextjs-auth0/client';
-import { client } from '@/sanity/lib/client';
+// import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios'
-import { Button, Group } from "@chakra-ui/react"
+import { Group } from "@chakra-ui/react"
 import {
-  StepsCompletedContent,
-  StepsContent,
   StepsItem,
   StepsList,
-  StepsNextTrigger,
-  StepsPrevTrigger,
   StepsRoot,
 } from "@/components/ui/steps"
-import { LuCalendar, LuUser, LuWallet } from "react-icons/lu"
+import {  LuUser, LuWallet } from "react-icons/lu"
 import Checkout from '../Checkout/Checkout';
 import useCartStore from '../stores/useCartStore';
 import useSyncCart from '../hooks/useSyncCart';
 import { toast } from 'react-toastify';
-
-
-
 
 const CartPage = () => {
   //const { user } = useUser();
@@ -30,101 +22,21 @@ const CartPage = () => {
   const userId = 'google-oauth2|102988815370920618477';
   const [cartItem, setCartItem] = useState([]);
   const [step, setStep] = useState(1)
+  const [loading, setLoading] = useState(false);
   useSyncCart(userId);
 
-
-  // const fetchData = async () => {
-  //   try {
-  //     const query = `*[_type == "cart" && userId == $userId][0] {
-  //       items[] {
-  //         _key,
-  //         quantity,
-  //         price,
-  //         product-> {
-  //           id,
-  //           _id,
-  //           title,
-  //           images[0]{ asset->{url} }
-  //         }
-  //       }
-  //     }`;
-
-  //     const cartStored = await client.fetch(query, { userId });
-  //     console.log(cartStored, 'items')
-
-  //     if (cartStored?.items) {
-  //       setCartItem([...cartStored.items]); // ✅ Ensure state updates
-  //     } else {
-  //       setCartItem([]); // Empty cart if no items
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching cart data:", error);
-  //   }
-
-  // }
-  // useEffect(() => {
-  //   fetchData();
-
-  // }, [userId])
-
-
-  // async function removeFromCart(userId, product) {
-  //   const _id = product;
-  //   try {
-  //     const response = await axios.delete('/api/remove-cart', {
-  //       data: { userId, productId: _id }
-  //     });
-
-  //     if (response.status == 200) {
-  //       setCartItem((prevItems) =>
-  //         prevItems.filter((item) => item.product._id !== _id)
-  //       );
-  //     } else {
-  //       alert('failed to remove')
-  //     }
-  //   } catch (error) {
-  //     console.error('Error adding to cart:', error);
-  //     alert('Failed to add product to cart.');
-  //   }
-  // }
-
-
-  // async function clearCart(userId, product) {
-  //   try {
-  //     const response = await axios.delete('/api/clear-cart', {
-  //       data: { userId, product }
-  //     });
-
-  //     if (response.status == 200) {
-  //       await fetchData();
-  //       alert('Cart cleared successfully!');
-  //       setCartItem([]);
-  //     } else {
-  //       alert('failed to remove')
-  //     }
-  //   } catch (error) {
-  //     console.error('Error adding to cart:', error);
-  //     alert('Failed to add product to cart.');
-  //   }
-  // }
-  const [loading, setLoading] = useState(false);
-
   async function updateQuantity(productId: string, delta: number) {
-
     if (loading) return;
-
     setLoading(true);
-
-
     try {
       // Find the current item in the cart
       const currentItem = cartItem.find((item: any) => item.product._id === productId);
 
       // Check if the new quantity would be less than 1
-      if (currentItem && currentItem.quantity + delta < 1) {
-        alert('Quantity cannot be less than 1');
-        return;
-      }
+      // if (currentItem && currentItem.quantity + delta < 1) {
+      //   alert('Quantity cannot be less than 1');
+      //   return;
+      // }
 
       // Call the API to update the quantity
       const response = await axios.post('/api/update-quantity', {
@@ -158,65 +70,26 @@ const CartPage = () => {
     return acc + (product.product?.price * product.quantity);
   }, 0);
 
-  const handleClick = () => {
-    switch (step) {
-      case 1:
-        setStep(prev => prev + 1)
-        console.log('case 1', step)
-        break;
-      case 2:
-        setStep(prev => prev + 1)
-        console.log('case 2', step)
-        break;
-      case 3:
-        setStep(prev => prev + 1)
-        console.log('case 3', step)
-        break;
-    }
-  }
-
-  const handleCheckoutSuccess = () => {
-    setStep(3); // Move to Step 3 (Billing) after successful checkout
-  };
-
-  // async function updateQuantity(productId, delta) {
-  //   try {
-
-  //     console.log(userId, productId, delta, '2 console')
-  //     const response = await axios.post('/api/update-cart', {
-  //       userId,
-  //       productId,
-  //       delta,
-  //     });
-
-  //     if (response.status === 200) {
-  //       console.log(response.data.updatedItems, "updated cart ites")
-  //       const updatedCart = response.data.updatedItems;
-
-
-  //       setCartItem((prevCart:any) =>
-  //         prevCart.map((item:any) =>
-  //           item.product._id === productId
-  //             ? { ...item, quantity: item.quantity + delta }
-  //             : item
-  //         )
-  //       );
-
-  //     } else {
-  //       alert('Failed to update quantity.');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error updating quantity:', error);
-  //     alert('Failed to update quantity.');
+  // const handleClick = () => {
+  //   switch (step) {
+  //     case 1:
+  //       setStep(prev => prev + 1)
+  //       console.log('case 1', step)
+  //       break;
+  //     case 2:
+  //       setStep(prev => prev + 1)
+  //       console.log('case 2', step)
+  //       break;
+  //     case 3:
+  //       setStep(prev => prev + 1)
+  //       console.log('case 3', step)
+  //       break;
   //   }
   // }
 
-  // useEffect(() => {
-  //   console.log(items[0]?.product, 'itemssss')
-  // }, [items])
-  // useEffect(() => {
-  //   console.log(step, 'stepsss')
-  // }, [step])
+  const handleCheckoutSuccess = () => {
+    setStep(3); 
+  };
 
   const clearCarts = async (userId: string) => {
     // Optimistically update local state
@@ -292,21 +165,12 @@ const CartPage = () => {
                     </div>
                   </div>
                   <div className='flex items-center justify-center w-[20%]'>
-                    <button
-                      className='px-[15px] py-[12px] rounded-[12px] text-black bg-[#f3f3f3]'
-                      disabled={product.quantity <= 1 || loading} // Disable if quantity is 1 or loading
-                      onClick={() => updateQuantity(product.product._id, -1)}
-                    >
-                      -
-                    </button>
+                    <button className='px-[15px] py-[12px] rounded-[12px] text-black bg-[#f3f3f3]' disabled={product.quantity <= 1 || loading} 
+                      onClick={() => updateQuantity(product.product._id, -1)}>-</button>
                     <p className='p-[15px] rounded-[18px] text-black montserrat-semibold text-center'>{product?.quantity}</p>
-                    <button
-                      className='px-[15px] py-[12px] rounded-[12px] text-black bg-[#f3f3f3]'
+                    <button className='px-[15px] py-[12px] rounded-[12px] text-black bg-[#f3f3f3]'
                       disabled={loading} // Disable if loading
-                      onClick={() => updateQuantity(product.product._id, 1)}
-                    >
-                      +
-                    </button>
+                      onClick={() => updateQuantity(product.product._id, 1)}>+</button>
                   </div>
                   <div className='flex items-center justify-center w-[20%]'>
                     <h3 className='text-black montserrat-medium text-lg'>{parseFloat(product.product.price) * product.quantity}$</h3>
@@ -339,9 +203,6 @@ const CartPage = () => {
         onSuccess={handleCheckoutSuccess}>
       </Checkout>)
     }
-    
-
-
   }
 
   return (

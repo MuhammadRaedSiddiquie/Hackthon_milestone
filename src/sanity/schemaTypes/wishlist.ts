@@ -19,11 +19,11 @@ export default {
             { name: 'id', type: 'string', title: 'Product ID' },
             { name: 'title', title: 'Title', type: 'string' },
             { name: 'description', title: 'Description', type: 'text' },
-            { name: 'price', type: 'number', title: 'Price' }, // Add product price
+            { name: 'price', type: 'number', title: 'Price' },
             {
               name: 'image',
               type: 'url',
-              title: 'Product Image', // Add product image
+              title: 'Product Image', 
               options: { hotspot: true },
             },
             { name: 'discountPercentage', title: 'Discount Percentage', type: 'number' },

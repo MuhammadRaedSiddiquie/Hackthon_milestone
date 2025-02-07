@@ -20,7 +20,7 @@ function Header() {
 
   const [open, setOpen] = useState(false)
   const { user } = useUser();
-  const userId = user?.sub;
+  // const userId = user?.sub;
   const [cartSize, setCartSize] = useState(0)
   const [searchQuery, setSearchQuery] = useState<string>('');
   const router = useRouter();
@@ -79,16 +79,13 @@ function Header() {
             <Link href={'/Team'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov xxl:text-xl'>Team</li></Link>
             <Link href={'/Contact'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov xxl:text-xl'>Contact</li></Link>
             <Link href={'/Pricing'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov xxl:text-xl'>Pricing</li></Link>
-
           </ul>
-
           <form onSubmit={handleSearch} className=" flex py-[4px] items-center gap-2 border border-[#c3c3c3] rounded-[18px] px-1">
             <input className='px-[10px] bg-white text-black ring-0 outline-0' type='text' placeholder='Search for Product...' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
             <button type="submit" className="bg-white text-black text-[12px] rounded-full px-1 py-1">
               <IoSearch className="text-[20px] text-primaryCol" />
             </button>
           </form>
-
           <div className='flex items-center py-[10px] gap-[10px]'>
             <div className='flex items-center gap-2 px-[10px] cursor-pointer'>
               {user ? <div className='w-[40px] h-[40px] rounded-full relative'>
@@ -128,8 +125,6 @@ function Header() {
           )}
 
         </div>
-
-
       </nav>
       {open ? <div className='w-full py-[25px]'>
         <ul className='flex flex-col w-full items-center gap-[25px]'>
@@ -145,5 +140,4 @@ function Header() {
     </header>
   )
 }
-
 export default Header

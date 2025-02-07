@@ -1,9 +1,7 @@
-// app/api/add-to-wishlist/route.ts
-import { nanoid } from 'nanoid';
+
+import { sanityClient } from '@/lib/sanity.client';
 import { NextRequest, NextResponse } from 'next/server';
-import { sanityClient } from '@/lib/sanity.client'
-import { Description } from '@radix-ui/react-dialog';
-// app/api/add-to-wishlist/route.ts
+
 
 export async function POST(req: NextRequest) {
     try {
