@@ -30,7 +30,8 @@ const CartPage = () => {
     setLoading(true);
     try {
       // Find the current item in the cart
-      const currentItem = cartItem.find((item: any) => item.product._id === productId);
+      const currentItem = items.find((item: any) => item.product._id === productId);
+   
 
       // Check if the new quantity would be less than 1
       if (currentItem && currentItem.quantity + delta < 1) {

@@ -53,6 +53,7 @@ export default function ProductDetails() {
                 setProduct(data[0])
             }
             fetchProduct();
+            setLoading(false);
         }
         else {
             setLoading(false);
