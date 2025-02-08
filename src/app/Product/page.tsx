@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/pagination"
 import Logos from '../components/Logos/Logos';
 import Card from '../components/Card/Card';
-interface Product {
+interface IProduct {
     id: string;
     title: string;
     description: string;
@@ -45,8 +45,8 @@ interface Product {
 
 function ProductPage() {
     // const [value, setValue] = useState<string[]>([])
-    const [data, setData] = useState([]);
-    const [sort, setSort] = useState<string>('no')
+    const [data, setData] = useState<IProduct[]>([]);
+    const [sort, setSort] = useState<string[]>(['no'])
     const frameworks = createListCollection({
         items: [
             { label: "No Filter", value: "no" },
@@ -91,7 +91,7 @@ function ProductPage() {
         console.log('fetched data products:', data)
         
     }, [])
-    const [sorted, setSorted] = useState<Product[]>(data);
+    const [sorted, setSorted] = useState<IProduct[]>(data);
     useEffect(()=>{
         setSorted(data)
     },[data])
@@ -106,7 +106,7 @@ function ProductPage() {
                 setSorted(data)
                 break;
             case 'low':
-                const lowPrice:Product[]=[...data]
+                const lowPrice:IProduct[]=[...data]
                 for(let i=0;i<=data.length-2;i++){
                     for(let j=0;j<=data.length-2;j++){
                         if(lowPrice[j].price > lowPrice[j+1].price){

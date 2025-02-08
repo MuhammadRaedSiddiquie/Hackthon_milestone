@@ -71,7 +71,7 @@ console.log(view)
                         <Card
                         key={product.id}
                             id={product.id}
-                            image={product.images?.[0]?.asset?.url ?? product?.image}
+                            image={product.images?.[0]?.asset?.url }
                             title={product.title}
                             info={product.description}
                             price={product.price}

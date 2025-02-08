@@ -15,6 +15,7 @@ import Dialogdemo from '../Dialogdemo/Dialogdemo';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import useAuthStore from '@/app/stores/useAuthStore';
+import useCartStore from '@/app/stores/useCartStore';
 
 
 function Header() {
@@ -22,6 +23,7 @@ function Header() {
   const [open, setOpen] = useState(false)
   // const { user } = useUser();
   // const userId = user?.sub;
+  const { items } = useCartStore();
   const { user } = useAuthStore();
   const [isHydrated, setIsHydrated] = useState(false);
 
@@ -85,7 +87,7 @@ useEffect(() => {
             <Link href={'/About'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov xxl:text-xl'>About</li></Link>
             <Link href={'/Team'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov xxl:text-xl'>Team</li></Link>
             <Link href={'/Contact'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov xxl:text-xl'>Contact</li></Link>
-            <Link href={'/Pricing'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov xxl:text-xl'>Pricing</li></Link>
+            <Link href={'/orders'}><li className='montserrat-bold text-blueCol text-sm hover:text-secondaryHov xxl:text-xl'>Orders</li></Link>
           </ul>
           <form onSubmit={handleSearch} className=" flex py-[4px] items-center gap-2 border border-[#c3c3c3] rounded-[18px] px-1">
             <input className='px-[10px] bg-white text-black ring-0 outline-0' type='text' placeholder='Search for Product...' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
@@ -104,15 +106,15 @@ useEffect(() => {
               }
             </div>
 
-            <Link href={'/Cart'}> <div className='flex items-center px-[10px] cursor-pointer'>
-              <IoCartOutline className='text-[#23A6F0] text-xl hover:text-blueHov xxl:text-3xl' />
+            <Link href={'/Cart'}> <div className='flex items-center pl-[10px] pr-[6px] cursor-pointer'>
+              <IoCartOutline className='text-[#23A6F0] text-3xl hover:text-blueHov xxl:text-3xl' />
               {
-                cartSize > 0 ? <p className='montserrat-bold text-white w-[20px] h-[20px] rounded-[50%] flex items-center justify-center text-sm bg-blueCol xxl:text-xl'>{cartSize}</p> : ''
+                items.length > 0 ? <p className='montserrat-bold text-white w-[20px] h-[20px] rounded-[50%] flex items-center justify-center text-sm bg-blueCol xxl:text-xl'>{items.length}</p> : ''
               }
             </div></Link>
-            <Link href={'/Wishlist'}><div className='flex items-center px-[10px] cursor-pointer'>
-              <CiHeart className='text-[#23A6F0] text-xl hover:text-blueHov xxl:text-3xl' />
-              <p className='montserrat-bold text-[#23A6F0] text-sm xxl:text-xl'>1</p>
+            <Link href={'/Wishlist'}><div className='flex items-center px-[6px] cursor-pointer'>
+              <CiHeart className='text-[#23A6F0] text-3xl hover:text-blueHov xxl:text-3xl' />
+              {/* <p className='montserrat-bold text-[#23A6F0] text-sm xxl:text-xl'>1</p> */}
             </div></Link>
           </div>
         </div>

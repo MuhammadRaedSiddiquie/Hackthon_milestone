@@ -182,7 +182,7 @@ export default function ProductDetails() {
    
 
 
-    const handleAddToWishlist = async (id, image, title, price, description, discount, rating) => {
+    const handleAddToWishlist = async (id:any, image:any, title:any, price:any, description:any, discount:any, rating:any) => {
         try {
             const response = await axios.post('/api/add-to-wishlist', {
                 userId,
@@ -205,7 +205,7 @@ export default function ProductDetails() {
         }
     };
 
-    const handleRemoveFromWishlist = async (id) => {
+    const handleRemoveFromWishlist = async (id:any) => {
         try {
             const response = await axios.delete('/api/remove-wishlist', {
                 data: { userId, productId: id },
