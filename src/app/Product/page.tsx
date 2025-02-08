@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 import { IoIosArrowForward } from "react-icons/io";
 
-import Logos from '../../components/Logos/Logos';
+
 import { AiOutlineBars } from "react-icons/ai";
 import { HiSquares2X2 } from "react-icons/hi2";
 
@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/select"
 import { useState } from "react"
 import Link from 'next/link';
-import Card from '../../components/Card/Card';
+
 import { client } from '@/sanity/lib/client';
 import { HStack } from "@chakra-ui/react"
 import {
@@ -26,6 +26,8 @@ import {
     PaginationPrevTrigger,
     PaginationRoot,
 } from "@/components/ui/pagination"
+import Logos from '../components/Logos/Logos';
+import Card from '../components/Card/Card';
 interface Product {
     id: string;
     title: string;

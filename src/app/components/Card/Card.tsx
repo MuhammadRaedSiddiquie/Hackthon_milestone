@@ -32,7 +32,7 @@ function Card({id, image, title, info, price, discount,rating,display }: {id:str
           <div className="animate-spin rounded-full border-t-4 border-blue-500 w-16 h-16"></div>
         </div>
       )}
-      <div className={` ' w-full relative hover:scale-105 duration-500 ' ${display==='inline'?'h-[320px] min-w-[400px] max-w-[400px]':'h-[395px]'} `}>
+      <div className={` ' w-full relative hover:scale-105 duration-500 ' ${display==='inline'?'h-[320px] min-w-[400px] max-w-[400px]':'h-[300px]'} `}>
         <Image src={image} alt='product' layout='fill' className='object-contain'></Image>
       </div>
       <div className={` ' flex flex-col items-start pb-[35px] pt-[25px]' ${display==='inline'?'px-0 gap-[20px]':'px-[25px] gap-[10px]'} `}>

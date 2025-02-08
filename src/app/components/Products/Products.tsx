@@ -65,7 +65,7 @@ console.log(view)
                     <h1 className='montserrat-bold text-primaryCol text-[24px] xxl:text-4xl'>WISHLIST</h1>
                     {/* <p className='montserrat-regular text-secondaryCol text-sm xxl:text-xl'>Problems trying to resolve the conflict between </p> */}
                 </div>
-                <div className='w-full grid xx:grid-cols-4 gap-x-[30px] place-items-center grid-flow-row max-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'>
+                <div className='w-full grid xx:grid-cols-4 gap-x-[30px] gap-y-[30px] place-items-center grid-flow-row max-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'>
                     {data?.map((product) => (
                         <Card
                         key={product.id}
