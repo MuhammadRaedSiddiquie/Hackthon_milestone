@@ -33,10 +33,10 @@ const CartPage = () => {
       const currentItem = cartItem.find((item: any) => item.product._id === productId);
 
       // Check if the new quantity would be less than 1
-      // if (currentItem && currentItem.quantity + delta < 1) {
-      //   alert('Quantity cannot be less than 1');
-      //   return;
-      // }
+      if (currentItem && currentItem.quantity + delta < 1) {
+        alert('Quantity cannot be less than 1');
+        return;
+      }
 
       // Call the API to update the quantity
       const response = await axios.post('/api/update-quantity', {
