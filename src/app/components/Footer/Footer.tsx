@@ -6,7 +6,7 @@ function Footer() {
     <footer className='w-full flex items-center justify-center'>
       <div className='w-[75%] flex flex-col items-center'>
         <div className='w-full flex items-center justify-between py-[40px]'>
-          <h1 className='text-[24px] montserrat-bolder text-primaryCol xxl:text-4xl'>Bandage</h1>
+          <h1 className='text-[24px] montserrat-bolder text-primaryCol xxl:text-4xl'>SwiftCart</h1>
           <div className='flex items-center gap-[20px]'>
             <FaInstagram className='text-blueCol text-xl hover:text-blueHov cursor-pointer xxl:text-3xl' />
             <FaFacebook className='text-blueCol text-xl hover:text-blueHov cursor-pointer xxl:text-3xl' />

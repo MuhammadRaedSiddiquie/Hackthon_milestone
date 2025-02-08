@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <title>Bandage</title>
+        <title>SwiftCart</title>
       </head>
       <UserProvider>
         <body

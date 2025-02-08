@@ -70,7 +70,7 @@ function Header() {
         </div>
       </div>
       <nav className='w-full h-[58px] bg-white flex items-center justify-between px-[30px] gap-[40px]'>
-        <h1 className='text-[24px] montserrat-bolder text-primaryCol xxl:text-4xl'>Bandage</h1>
+        <h1 className='text-[24px] montserrat-bolder text-primaryCol xxl:text-4xl'>SwiftCart</h1>
         <div className='w-[80%] flex items-center justify-between max-md:hidden'>
           <ul className='flex items-center gap-[15px]'>
             <Link href={'/'}><li className='montserrat-bold text-secondaryCol text-sm hover:text-secondaryHov xxl:text-xl'>Home</li></Link>
