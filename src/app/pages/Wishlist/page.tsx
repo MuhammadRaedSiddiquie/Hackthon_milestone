@@ -1,6 +1,9 @@
 'use client'
+
+import Products from "@/app/components/Products/Products";
+
 // import React, { useState } from 'react'
-import Products from '../components/Products/Products'
+
 
 
 const WishlistPage = () => {

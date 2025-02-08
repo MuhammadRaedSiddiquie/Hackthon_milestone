@@ -2,10 +2,11 @@
 
 import axios from "axios";
 import { toast } from "react-toastify";
-import useCartStore from "../stores/useCartStore";
+
 import { useEffect, Suspense } from "react";
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { useRouter, useSearchParams } from "next/navigation";
+import useCartStore from "@/app/stores/useCartStore";
 
 function SuccessContent() {
   const { user } = useUser();
