@@ -42,6 +42,7 @@ function Products({
         const fetchData = async () => {
             try {
                 const response = await client.fetch < Product[] > (query,{params});
+                console.log(response,'response fetched products')
                 setData(response);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -70,7 +71,7 @@ console.log(view)
                         <Card
                         key={product.id}
                             id={product.id}
-                            image={product.images?.[0]?.asset?.url}
+                            image={product.images?.[0]?.asset?.url ?? product?.image}
                             title={product.title}
                             info={product.description}
                             price={product.price}

@@ -14,13 +14,21 @@ import Link from 'next/link';
 import Dialogdemo from '../Dialogdemo/Dialogdemo';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import useAuthStore from '@/app/stores/useAuthStore';
 
 
 function Header() {
 
   const [open, setOpen] = useState(false)
-  const { user } = useUser();
+  // const { user } = useUser();
   // const userId = user?.sub;
+  const { user } = useAuthStore();
+  const [isHydrated, setIsHydrated] = useState(false);
+
+useEffect(() => {
+  setIsHydrated(true);
+}, []);
+
   const [cartSize, setCartSize] = useState(0)
   const [searchQuery, setSearchQuery] = useState<string>('');
   const router = useRouter();
@@ -37,14 +45,13 @@ function Header() {
       setCartSize(cartStored.length);
     };
     updateCartSize();
-    setInterval(() => {
-      updateCartSize();
-    }, 1000)
+   
 
 
   }, [])
 
 
+  if (!isHydrated) return null;
   return (
     <header className='w-full h-fit flex flex-col gap-[12px]'>
       <div className='w-full h-[58px] bg-[#252B42] flex items-center justify-between px-[24px] max-md:hidden'>
@@ -103,7 +110,7 @@ function Header() {
                 cartSize > 0 ? <p className='montserrat-bold text-white w-[20px] h-[20px] rounded-[50%] flex items-center justify-center text-sm bg-blueCol xxl:text-xl'>{cartSize}</p> : ''
               }
             </div></Link>
-            <Link href={'/Likes'}><div className='flex items-center px-[10px] cursor-pointer'>
+            <Link href={'/Wishlist'}><div className='flex items-center px-[10px] cursor-pointer'>
               <CiHeart className='text-[#23A6F0] text-xl hover:text-blueHov xxl:text-3xl' />
               <p className='montserrat-bold text-[#23A6F0] text-sm xxl:text-xl'>1</p>
             </div></Link>

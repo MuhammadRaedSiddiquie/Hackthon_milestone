@@ -16,6 +16,7 @@ import { fetchData } from '@/lib/fetchData';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import useCartStore from '@/app/stores/useCartStore';
 import { toast } from 'react-toastify';
+import useWishlistStore from '@/app/stores/useWishlistStore';
 
 export default function ProductDetails() {
     const params = useParams();
@@ -24,6 +25,7 @@ export default function ProductDetails() {
     const [isInWishlist, setIsInWishlist] = useState(false)
     const [selectedCol, setColor] = useState('#23A6F0');
     const { user } = useUser();
+    const { items, addItem, removeItem } = useWishlistStore();
     const userId = user?.sub;
 
     const query = `*[_type == "product"]{
@@ -81,7 +83,7 @@ export default function ProductDetails() {
         }
     }, [userId, product,checkWishlist]);
 
-    
+
 
     const addToCart = async (
         userId: any,
@@ -134,9 +136,53 @@ export default function ProductDetails() {
         }
     };
 
-    async function addToWishlist(userId:any, product:any) {
-        const { images, id, price, title, description, discountPercentage, rating } = product;
-        const image = images[0]?.asset?.url;
+    // async function addToWishlist(userId:any, product:any) {
+    //     const { images, id, price, title, description, discountPercentage, rating } = product;
+    //     const image = images[0]?.asset?.url;
+    //     try {
+    //         const response = await axios.post('/api/add-to-wishlist', {
+    //             userId,
+    //             id,
+    //             price,
+    //             title,
+    //             description,
+    //             image,
+    //             discountPercentage,
+    //             rating
+    //         });
+    //         setIsInWishlist(true)
+    //         if (response.data.success) {
+    //             alert('Product added to cart successfully!');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error adding to cart:', error);
+    //         alert('Failed to add product to cart.');
+    //     }
+    // }
+    // async function removeFromWishlist(userId:any, product:any) {
+
+    //     const { id } = product;
+
+    //     try {
+    //         const response = await axios.delete('/api/remove-wishlist', {
+    //             data: {
+    //                 userId,
+    //                 productId: id,
+    //             }
+    //         });
+    //         setIsInWishlist(false)
+    //         if (response.data.success) {
+    //             alert('Product removed from wishlist successfully!');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error removing from wishlist:', error);
+    //         alert('Failed to remove product from wishlist.');
+    //     }
+    // }
+   
+
+
+    const handleAddToWishlist = async (id, image, title, price, description, discount, rating) => {
         try {
             const response = await axios.post('/api/add-to-wishlist', {
                 userId,
@@ -145,39 +191,35 @@ export default function ProductDetails() {
                 title,
                 description,
                 image,
-                discountPercentage,
-                rating
+                discountPercentage: discount,
+                rating,
             });
-            setIsInWishlist(true)
-            if (response.data.success) {
-                alert('Product added to cart successfully!');
+
+            if (response.status === 200) {
+                addItem({ id, title, price, description, image, discountPercentage: discount, rating });
+                toast.success('Added to wishlist!');
             }
         } catch (error) {
-            console.error('Error adding to cart:', error);
-            alert('Failed to add product to cart.');
+            console.error('Error adding to wishlist:', error);
+            toast.error('Failed to add to wishlist');
         }
-    }
-    async function removeFromWishlist(userId:any, product:any) {
+    };
 
-        const { id } = product;
-
+    const handleRemoveFromWishlist = async (id) => {
         try {
             const response = await axios.delete('/api/remove-wishlist', {
-                data: {
-                    userId,
-                    productId: id,
-                }
+                data: { userId, productId: id },
             });
-            setIsInWishlist(false)
-            if (response.data.success) {
-                alert('Product removed from wishlist successfully!');
+
+            if (response.status === 200) {
+                removeItem(id);
+                toast.success('Removed from wishlist!');
             }
         } catch (error) {
             console.error('Error removing from wishlist:', error);
-            alert('Failed to remove product from wishlist.');
+            toast.error('Failed to remove from wishlist');
         }
-    }
-
+    };
 
     return (
         <main className='w-full flex flex-col items-center justify-start'>
@@ -225,7 +267,7 @@ export default function ProductDetails() {
                     <div className='flex gap-[10px] items-center justify-start mt-10'>
                         <button onClick={() => addToCart(userId, product.title, product._id, product.price, product.images?.[0]?.asset?.url)} className='bg-blueCol text-sm text-white montserrat-bold rounded-[5px] py-[10px] px-[20px] hover:bg-blueHov xxl:text-xl'>Select Options</button>
                         <button onClick={() => {
-                            isInWishlist ? removeFromWishlist(userId, product) : addToWishlist(userId, product);
+                            isInWishlist ? handleRemoveFromWishlist(product.id) : handleAddToWishlist(product.id, product.images?.[0]?.asset?.url, product.title, product.price, product.description, product.discount, product.rating);
                         }} className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol hover:bg-[#e3e3e3]'>
                             {isInWishlist ? <FaHeart /> : <FaRegHeart />}
                         </button>

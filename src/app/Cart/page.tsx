@@ -15,11 +15,13 @@ import Checkout from '../Checkout/Checkout';
 import useCartStore from '../stores/useCartStore';
 import useSyncCart from '../hooks/useSyncCart';
 import { toast } from 'react-toastify';
+import useAuthStore from '../stores/useAuthStore';
 
 const CartPage = () => {
   //const { user } = useUser();
   const { items } = useCartStore();
-  const userId = 'google-oauth2|102988815370920618477';
+  const { user } = useAuthStore();
+  const userId = user;
   const [cartItem, setCartItem] = useState([]);
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false);

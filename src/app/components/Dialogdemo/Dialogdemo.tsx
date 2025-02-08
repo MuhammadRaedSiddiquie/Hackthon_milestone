@@ -1,3 +1,4 @@
+import useAuthStore from "@/app/stores/useAuthStore";
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -8,12 +9,12 @@ import {
   // DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { useUser } from "@auth0/nextjs-auth0/client";
+
 
 
 
 function Dialogdemo() {
-  const { user} = useUser();
+  const { user} = useAuthStore();
   return (
     <Dialog>
       <DialogTrigger asChild>

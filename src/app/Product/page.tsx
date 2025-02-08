@@ -100,29 +100,87 @@ function ProductPage() {
     const ProductsPerPage = 24;
     const totalPages = Math.ceil(data.length / ProductsPerPage)
     const paginatedData = sorted.slice((currentPage - 1) * ProductsPerPage, currentPage * ProductsPerPage)
-    
     const productSorting = () => {
-        let sortedData: Product[] = [...data]; // ✅ Create a new array to maintain immutability
-      
-        switch (sort) { // ✅ `sort` is a string, not an array
-          case "low":
-            sortedData.sort((a, b) => a.price - b.price);
-            break;
-          case "high":
-            sortedData.sort((a, b) => b.price - a.price);
-            break;
-          case "discount":
-            sortedData.sort((a, b) => b.discountPercentage - a.discountPercentage);
-            break;
-          case "rated":
-            sortedData.sort((a, b) => b.rating - a.rating);
-            break;
-          default:
-            break;
+        switch (sort[0]) {
+            case 'no':
+                setSorted(data)
+                break;
+            case 'low':
+                const lowPrice:Product[]=[...data]
+                for(let i=0;i<=data.length-2;i++){
+                    for(let j=0;j<=data.length-2;j++){
+                        if(lowPrice[j].price > lowPrice[j+1].price){
+                            const temp=lowPrice[j]
+                            lowPrice[j]=lowPrice[j+1]
+                            lowPrice[j+1]=temp
+                        }
+                    }
+                }
+                setSorted(lowPrice)
+                break;
+            case 'high':
+                const highPrice=[...data]
+                for(let i=0;i<=data.length-2;i++){
+                    for(let j=0;j<=data.length-2;j++){
+                        if(highPrice[j].price < highPrice[j+1].price){
+                            const temp=highPrice[j]
+                            highPrice[j]=highPrice[j+1]
+                            highPrice[j+1]=temp
+                        }
+                    }
+                }
+                setSorted(highPrice)
+                break;
+            case 'discount':
+                const discounted=[...data]
+                for(let i=0;i<=data.length-2;i++){
+                    for(let j=0;j<=data.length-2;j++){
+                        if(discounted[j].discountPercentage < discounted[j+1].discountPercentage){
+                            const temp=discounted[j]
+                            discounted[j]=discounted[j+1]
+                            discounted[j+1]=temp
+                        }
+                    }
+                }
+                setSorted(discounted)
+                break;
+            case 'rated':
+                const rated=[...data]
+                for(let i=0;i<=data.length-2;i++){
+                    for(let j=0;j<=data.length-2;j++){
+                        if(rated[j].rating < rated[j+1].rating){
+                            const temp=rated[j]
+                            rated[j]=rated[j+1]
+                            rated[j+1]=temp
+                        }
+                    }
+                }
+                setSorted(rated)
+                break;
         }
+    }
+    // const productSorting = () => {
+    //     let sortedData: Product[] = [...data]; // ✅ Create a new array to maintain immutability
       
-        setSorted(sortedData);
-      };
+    //     switch (sort) { // ✅ `sort` is a string, not an array
+    //       case "low":
+    //         sortedData.sort((a, b) => a.price - b.price);
+    //         break;
+    //       case "high":
+    //         sortedData.sort((a, b) => b.price - a.price);
+    //         break;
+    //       case "discount":
+    //         sortedData.sort((a, b) => b.discountPercentage - a.discountPercentage);
+    //         break;
+    //       case "rated":
+    //         sortedData.sort((a, b) => b.rating - a.rating);
+    //         break;
+    //       default:
+    //         break;
+    //     }
+      
+    //     setSorted(sortedData);
+    //   };
       
     
     // const CustomPagination = ({ currentPage, totalPages, onPageChange }) => {
@@ -218,10 +276,10 @@ function ProductPage() {
                     </button> */}
                     <SelectRoot
                         collection={frameworks}
-                        width="120px"
+                        width="180px"
                         size={'md'}
-                        // value={sort}
-                        // onValueChange={(e) => { setSort(e.value) }}
+                        value={sort}
+                        onValueChange={(e) => { setSort(e.value) }}
                         className='bg-white gap-2 border-secondaryCol border-[1px] text-secondaryCol rounded-[5px]'
                     >
                         <SelectTrigger>

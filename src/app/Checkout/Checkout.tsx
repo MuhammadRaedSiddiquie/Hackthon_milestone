@@ -64,7 +64,7 @@ const pakistanCities: Record<string, string> = {
 };
 
 const Checkout = ({user,order,onSuccess}:{user:any,order:any,onSuccess: () => void;}) => {
-    console.log(order,'order')
+   
 
     const [formData, setFormData] = useState({
         name: "",
