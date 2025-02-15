@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+<<<<<<< HEAD
 const nextConfig = {
     eslint: {
         // Warning: This allows production builds to successfully complete even if
@@ -28,5 +29,8 @@ const nextConfig = {
       },
 };
 
+=======
+const nextConfig = {};
+>>>>>>> parent of 5f680c6 (debugging)
 
 export default nextConfig;

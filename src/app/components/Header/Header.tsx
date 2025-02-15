@@ -96,6 +96,7 @@ useEffect(() => {
             </button>
           </form>
           <div className='flex items-center py-[10px] gap-[10px]'>
+<<<<<<< HEAD
             <div className='flex items-center gap-2 px-[10px] cursor-pointer'>
               {user ? <div className='w-[40px] h-[40px] rounded-full relative'>
                 {user.picture ? <Image className='absolute object-cover rounded-full' src={user.picture} alt={"pic"} layout='fill'></Image> : ""}
@@ -104,6 +105,25 @@ useEffect(() => {
               {user ? <Dialogdemo></Dialogdemo>
                 : <a href="/api/auth/login"><p className='montserrat-bold text-[#23A6F0] text-sm hover:text-blueHov xxl:text-xl'>Login / Signup</p></a>
               }
+=======
+          <div className='flex items-center gap-2 px-[10px] cursor-pointer'>
+          {user ? <div className='w-[40px] h-[40px] rounded-full relative'>
+            {user.picture ? <Image className='absolute object-cover rounded-full' src={user.picture} alt={"pic"}></Image> : ""}
+          </div> :
+            <FaRegUser className='text-[#23A6F0] xxl:text-2xl' />}
+          {user ? <Dialogdemo></Dialogdemo>
+            : <a href="/api/auth/login"><p className='montserrat-bold text-[#23A6F0] text-sm hover:text-blueHov xxl:text-xl'>Login / Signup</p></a>
+          }
+        </div>
+            
+            <div className='flex items-center px-[10px] cursor-pointer'>
+              <IoCartOutline className='text-[#23A6F0] text-xl hover:text-blueHov xxl:text-3xl' />
+              <p className='montserrat-bold text-[#23A6F0] text-sm xxl:text-xl'>1</p>
+            </div>
+            <div className='flex items-center px-[10px] cursor-pointer'>
+              <CiHeart className='text-[#23A6F0] text-xl hover:text-blueHov xxl:text-3xl' />
+              <p className='montserrat-bold text-[#23A6F0] text-sm xxl:text-xl'>1</p>
+>>>>>>> parent of 5f680c6 (debugging)
             </div>
 
             <Link href={'/Cart'}> <div className='flex items-center pl-[10px] pr-[6px] cursor-pointer'>
